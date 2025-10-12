@@ -1,0 +1,47 @@
+site_url : https://asalvadorc.github.io/AD_BD_NoSQL_
+
+site_name: AD - Accés a Dades - BD NoSQL
+
+extra_css:
+  - css/extra.css
+  - img/favicon.ico 
+  - css/copy-button.css
+
+extra_javascript:
+  - js/copy-button.js  
+
+theme: 
+  name: readthedocs
+  features:
+    - navigation.expand
+    - navigation.sections
+    - navigation.tabs
+    - copy-to-clipboard
+    - content.code.copy
+  logo: assets/logocaminas.png
+    
+
+
+markdown_extensions:
+  - admonition
+  - tables    
+  - attr_list
+  - toc
+  - md_in_html
+
+nav:
+
+- BD Documentales nativas:
+  - 🔹RA y CE: RA_CE.md
+  - 🔹Introducción: Introduccion.md
+- MONGO:
+  - 🔹Introducción: mongo/Mongo.md
+  - 🔹JSON: mongo/json.md
+  - 🔹Instalación: mongo/instalacion.md
+  - 🔹Comandos: mongo/comandos.md
+  - 🔹Conexión: mongo/conexion.md
+- FIREBASE:
+  - 🔹Conexión: firebase/Firebase.md
+
+ 
+  
