@@ -22,10 +22,8 @@ Aquí tienes un resumen actualizado, organizado por categorías 👇
 | 📜 **mongosh** | Consola oficial | Shell de comandos moderno (sustituye a `mongo`). |
 
 
-Podremos instalar MongoDB en cualquier plataforma, e incluso sin tener permisos de administrador, como veremos en el caso de Ubuntu.
-
-También existe la posibilidad de crear un servidor en la nube, incluso de forma gratuita.
-Es la opción que MongoDB recomienda por defecto, aunque nosotros no la utilizaremos.
+!!!Note ""
+    🎯 De entre todas las opciones posibles para instalar y administrar MongoDB, hemos elegido utilizar la versión **Community** junto con **Mongo Shell (mongosh)** por su simplicidad, ligereza y adecuación a los objetivos de esta unidad.
 
 
 ## 🐧 Instalación en Linux
