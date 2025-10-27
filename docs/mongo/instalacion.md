@@ -39,7 +39,7 @@ Desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/commu
 Observa que, en el caso de Linux, hay muchas versiones para distintas distribuciones.
 Es recomendable elegir el paquete **.tgz**, ya que simplemente descomprimiendo el archivo se completa la instalación básica.
 
-Por ejemplo, para Ubuntu 22.04 de 64 bits, el archivo sería: [https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.0.5.tgz](https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.0.5.tgz)
+Por ejemplo, para Ubuntu 22.04 de 64 bits, en el momento de redactar estos apuntes, el archivo sería: [https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.2.1.tgz](https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.2.1.tgz)
 
 !!!Warning ""
     Recuerda comprobar siempre que la versión coincide con la de tu sistema operativo.
@@ -116,46 +116,56 @@ Sencillamente descomprimiremos este archivo en el lugar que queramos, y con eso 
 
 ⚙️ **Instalación del servidor (Windows)**{.azul}
 
-La instalación no presenta ninguna dificultad.
-Descargamos la versión correspondiente de MongoDB para Windows, que se distribuye como un archivo .msi ejecutable.
+Desde la página oficial de MongoDB: [https://www.mongodb.com/try/download/community](https://www.mongodb.com/try/download/community) vamos al menú **Products → Community Edition → Community Server** y descargamos la versión apropiada para nuestro sistema operativo, que se distribuye como un archivo **.msi** ejecutable.
 
-En el momento de redactar estos apuntes, la versión de 64 bits más reciente es la 8.0.5:
-👉 https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-8.0.5-signed.msi
+🔽En el momento de redactar estos apuntes, la versión de 64 bits más reciente: [https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-8.2.1-signed.msi](https://fastdl.mongodb.org/windows/mongodb-ewindows-x86_64-8.2.1-signed.msi)
 
-Al igual que en el caso de Linux, antes de ejecutar el servidor debemos tener creado el directorio de datos.
-Por defecto, este directorio será:
+Durante la instalación, se te preguntará si deseas instalarlo como un servicio. Si eliges esta opción, el programa se iniciará automáticamente con el sistema y no tendrás que ejecutarlo manualmente cada vez.
 
-    \data\db
+![alt text](../img/image.png)
 
-📁 Creación del directorio y arranque del servidor
+🎯Si instalaste MongoDB como servicio, se inicia automáticamente al arrancar Windows, puedes comprobarlo con:
 
-Ejecuta los siguientes comandos en el Símbolo del sistema (cmd) o PowerShell:
-
-    mkdir \data\db
-    "C:\Program Files\MongoDB\Server\8.0\bin\mongod.exe"
+    net start | find "MongoDB"
 
 
+!!!Note "Nota" 
+    Si eliges **no** instalar MongoDB como servicio, deberás iniciarlo manualmente cada vez que quieras usarlo. En este caso, es necesario crear la carpeta donde se almacenarán los datos de la base de datos.
+
+<!--
 Si todo es correcto, debería aparecer una ventana o consola indicando que el servidor está en ejecución, como en la siguiente imagen:
 
 ![alt text](../img/mongodW.png)
 
-
-!!!Note "Nota"
-    Si instalaste MongoDB utilizando el instalador MSI de MongoDB, normalmente el servicio ya quedará instalado automáticamente, por lo que no será necesario ejecutarlo manualmente.
-
+-->
 
 💻 **Instalación del cliente Mongo Shell (Windows)**{.azul}
 
-Para conectarnos como clientes, debemos hacerlo desde otra terminal, utilizando mongosh.exe, que es la interfaz de línea de comandos (CLI) oficial de MongoDB.
+Para conectarnos como clientes, debemos hacerlo desde un  terminal, utilizando mongosh.exe, que es la interfaz de línea de comandos (CLI) oficial de MongoDB.
 
 Esta herramienta permite interactuar con la base de datos mediante comandos en JavaScript.
 
-🔽 Descarga
 
-Descargamos la versión correspondiente de MongoDB Shell para Windows desde la página oficial:[https://www.mongodb.com/try/download/shell](https://www.mongodb.com/try/download/shell)
+
+🔽Descargamos la versión correspondiente de MongoDB Shell para Windows desde la página oficial: [https://www.mongodb.com/try/download/shell](https://www.mongodb.com/try/download/shell)
+
+🔽En el momento de redactar estos apuntes, la versión de 64 bits más reciente: [https://downloads.mongodb.com/compass/mongosh-2.5.8-x64.msi](https://downloads.mongodb.com/compass/mongosh-2.5.8-x64.msi)
+
+
+Una vez el servidor esté activo, simplemente escribe:
+
+    mongosh
+
+Dentro del shell, prueba con:
+
+    show dbs
+
+Si ves las bases de datos (admin, config, local), todo está funcionando correctamente:
+
+![alt text](../img/image2.png)
 
 !!!Tip "Mongo Compass"
-    También podéis descargar la versión MongoDB Compass, que es la herramienta gráfica oficial de MongoDB, la cual permite visualizar, explorar y administrar bases de datos MongoDB sin necesidad de utilizar la línea de comandos.
+    También podéis descargar la versión **MongoDB Compass**, que es la herramienta gráfica oficial de MongoDB, la cual permite visualizar, explorar y administrar bases de datos MongoDB sin necesidad de utilizar la línea de comandos.
 
     [https://downloads.mongodb.com/compass/mongodb-compass-1.45.3-win32-x64.exe](https://downloads.mongodb.com/compass/mongodb-compass-1.45.3-win32-x64.exe)
 
@@ -171,10 +181,13 @@ Con el siguiente comando:
 
 Nos responderá con:
 
-    WriteResult({ "nInserted" : 1 })
+        {
+        acknowledged: true,
+        insertedId: ObjectId('68ff6004ab24a06f35cebea4')
+        }
 
 
-Indicando que se ha insertado un documento en la colección ejemplo (si no existía, la creará automáticamente).
+Indicando que se ha insertado un documento en la **colección ejemplo** (si no existía, la creará automáticamente).
 
 Y con el siguiente comando recuperamos la información:
 
@@ -186,14 +199,15 @@ Lo que nos devolverá algo como:
     { "_id" : ObjectId("56cc1acd73b559230de8f71b"), "msg" : "Hola, ¿qué tal?" }
 
 
-Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un número diferente en el campo ObjectId.
+![alt text](../img/image3.png)
+
+Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un número diferente en el campo **ObjectId**.
 En la siguiente imagen pueden verse las dos operaciones.
 
-![alt text](../img/mongo_opW.png)
 
 En realidad, estamos conectados a una base de datos llamada test.
 Podemos crear y utilizar más de una base de datos, pero en este curso será más que suficiente trabajar con esta.
 
-Para comprobarlo, podemos ejecutar la siguiente instrucción, que nos devuelve el nombre de la base de datos actual:
+Para comprobarlo, podemos ejecutar la siguiente instrucción, que nos devuelve **el nombre de la base de datos actual**:
 
     db.getName()
