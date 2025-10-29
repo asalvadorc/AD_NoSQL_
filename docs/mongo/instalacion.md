@@ -46,12 +46,14 @@ Por ejemplo, para Ubuntu 22.04 de 64 bits, en el momento de redactar estos apunt
 
 Sencillamente, descomprimiremos este archivo en el lugar que queramos, y con eso ya tendremos la instalación básica lista.
 
-Por defecto, el directorio de la base de datos es:
+📁 Una vez instalado, crearemos el directorio de datos, que por defecto ha de estar ubicado en la raiz de la instalación:
 
-    /data/db
+    mkdir /data  
+    mkdir /data/db
 
 El único problema que podríamos tener, si no somos administradores, es no tener permiso para crear ese directorio.
 En ese caso, crearemos otro directorio alternativo y, en el momento de arrancar el servidor, le indicaremos esa ubicación.
+
 
 ▶️ La forma de arrancar el servidor será:
 
@@ -59,28 +61,14 @@ En ese caso, crearemos otro directorio alternativo y, en el momento de arrancar 
 
 Opcionalmente, podemos indicarle a MongoDB dónde se encuentra la base de datos (si no lo especificamos, asumirá por defecto que está en /data/db):
 
-    <directorio raíz de MongoDB>/bin/mongod --dbpath <directorio_de_la_BD>
+    <directorio raíz de MongoDB>./bin/mongod --dbpath <directorio_de_la_BD>
 
-Resumiendo, y situados en el directorio donde hemos descomprimido MongoDB:
+Una vez arrancamos el servidor, y si todo es correcto, aparecerán una serie de mensajes informativos y el servidor quedará en espera de recibir peticiones del cliente:
 
-📁 Crear el directorio de datos
 
-    mkdir /data  
-    mkdir /data/db
+![alt text](../img/mongo_linus.png)|![alt text](../img/mongo_linus2.png)|
+-----|-----
 
-▶️ Si no somos administradores, arrancamos el servidor así:    
-
-    ./bin/mongod --dbpath ./data/db
-
-🔐 Si somos administradores, simplemente lo iniciamos con:
-
-    ./bin/mongod
-
-La siguiente imagen ilustra esta segunda opción.
-
-Corresponde a una versión anterior de MongoDB, pero el procedimiento es totalmente equivalente.
-
-![alt text](../img/mongod.png)
 
 !!!Note "Nota"
     Una vez que el servidor está en marcha, no debemos cerrar esa terminal, ya que al hacerlo detendríamos el servidor.
@@ -105,9 +93,10 @@ El archivo correspondiente es: [https://downloads.mongodb.com/compass/mongosh-2.
 
 Sencillamente descomprimiremos este archivo en el lugar que queramos, y con eso ya tendremos hecha la instalación básica.
 
-    <directori raíz de  Mongosh>/bin/mongosh
+▶️ La forma de arrancar el cliente será:
 
-    ./bin/mongosh
+    <directori raíz de  Mongosh>./bin/mongosh
+
 
 ![alt text](../img/mongosh.png)    
 
