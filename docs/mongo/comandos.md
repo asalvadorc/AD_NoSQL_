@@ -2,7 +2,12 @@
 
 ---
 
+Los comandos básicos de MongoDB ya se trabajaron en 1.º de DAM, cuando se introdujo el modelo NoSQL y las operaciones fundamentales sobre colecciones y documentos.
+
+En este tema no se pretende volver a explicarlos desde cero, sino ofrecer un resumen práctico y actualizado con los comandos más útiles para consultar, ordenar, filtrar y gestionar datos en MongoDB, que te servirá como recordatorio y punto de partida para los ejercicios de este módulo.
+
 MongoDB utiliza su propia **shell interactiva**, llamada **`mongosh`**, que permite ejecutar comandos para administrar bases de datos, colecciones y documentos.  
+
 Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobre un **objeto base**:
 
 
@@ -26,12 +31,12 @@ Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobr
 
 ## 🔹 Sobre colecciones
 
-| Comando | Descripción | Ejemplo |
-|----------|--------------|----------|
-| `show collections` | Lista todas las colecciones de la base de datos. | `show collections` |
-| `db.createCollection("nombre")` | Crea una colección vacía. | `db.createCollection("alumnos")` |
-| `db.coleccion.drop()` | Elimina una colección completa. | `db.alumnos.drop()` |
-| `db.coleccion.renameCollection("nuevoNombre")` | Cambia el nombre de una colección. | `db.alumnos.renameCollection("estudiantes")` |
+| Comando | Descripción |
+|----------|--------------|
+| `show collections` | Lista todas las colecciones de la base de datos.<br>**Ejemplo:** `show collections` |
+| `db.createCollection("nombre")` | Crea una colección vacía.<br>**Ejemplo:** `db.createCollection("alumnos")` |
+| `db.coleccion.drop()` | Elimina una colección completa.<br>**Ejemplo:** `db.alumnos.drop()` |
+| `db.coleccion.renameCollection("nuevoNombre")` | Cambia el nombre de una colección.<br>**Ejemplo:** `db.alumnos.renameCollection("estudiantes")` |
 
 ---
 
@@ -39,10 +44,11 @@ Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobr
 
 ### 🔹Inserción
 
-| Comando | Descripción | Ejemplo |
-|----------|--------------|----------|
-| `insertOne()` | Inserta un solo documento. | `db.alumnos.insertOne({nombre:"Ana", nota:8})` |
-| `insertMany()` | Inserta varios documentos a la vez. | `db.alumnos.insertMany([{nombre:"Luis", nota:7},{nombre:"Marta", nota:9}])` |
+| Comando | Descripción |
+|----------|--------------|
+| `insertOne()` | Inserta un solo documento.<br>**Ejemplo:** `db.alumnos.insertOne({nombre:"Ana", nota:8})` |
+| `insertMany()` | Inserta varios documentos a la vez.<br>**Ejemplo:** `db.alumnos.insertMany([{nombre:"Luis", nota:7}, {nombre:"Marta", nota:9}])` |
+
 
 > 📌 Si la colección no existe, MongoDB la **creará automáticamente** en el momento de la inserción.
 
@@ -50,11 +56,12 @@ Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobr
 
 ### 🔹Búsqueda
 
-| Comando | Descripción | Ejemplo |
-|----------|--------------|----------|
-| `find()` | Devuelve todos los documentos de la colección. | `db.alumnos.find()` |
-| `findOne()` | Devuelve el primer documento que cumple una condición. | `db.alumnos.findOne({nombre:"Ana"})` |
-| `find(criterio, proyección)` | Permite filtrar y mostrar solo algunos campos. | `db.alumnos.find({nota:{$gte:8}}, {nombre:1, _id:0})` |
+| Comando | Descripción |
+|----------|--------------|
+| `find()` | Devuelve todos los documentos de la colección.<br>**Ejemplo:** `db.alumnos.find()` |
+| `findOne()` | Devuelve el primer documento que cumple una condición.<br>**Ejemplo:** `db.alumnos.findOne({nombre:"Ana"})` |
+| `find(criterio, proyección)` | Permite filtrar y mostrar solo algunos campos.<br>**Ejemplo:** `db.alumnos.find({nota:{$gte:8}}, {nombre:1, _id:0})` |
+
 
 📘 **Operadores comunes**:  
 `$eq` (igual), `$ne` (distinto), `$gt` (mayor que), `$lt` (menor que), `$gte` (mayor o igual), `$lte` (menor o igual), `$in`, `$and`, `$or`.
@@ -63,11 +70,12 @@ Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobr
 
 ### 🔹 Actualización
 
-| Comando | Descripción | Ejemplo |
-|----------|--------------|----------|
-| `updateOne(filtro, cambios)` | Actualiza el primer documento que cumpla la condición. | `db.alumnos.updateOne({nombre:"Ana"}, {$set:{nota:9}})` |
-| `updateMany(filtro, cambios)` | Actualiza todos los documentos que cumplan la condición. | `db.alumnos.updateMany({nota:{$lt:5}}, {$set:{aprobado:false}})` |
-| `replaceOne(filtro, nuevoDoc)` | Sustituye el documento completo. | `db.alumnos.replaceOne({nombre:"Ana"}, {nombre:"Ana", nota:10})` |
+| Comando | Descripción |
+|----------|--------------|
+| `updateOne(filtro, cambios)` | Actualiza el primer documento que cumpla la condición.<br>**Ejemplo:** `db.alumnos.updateOne({nombre:"Ana"}, {$set:{nota:9}})` |
+| `updateMany(filtro, cambios)` | Actualiza todos los documentos que cumplan la condición.<br>**Ejemplo:** `db.alumnos.updateMany({nota:{$lt:5}}, {$set:{aprobado:false}})` |
+| `replaceOne(filtro, nuevoDoc)` | Sustituye el documento completo.<br>**Ejemplo:** `db.alumnos.replaceOne({nombre:"Ana"}, {nombre:"Ana", nota:10})` |
+
 
 > ⚠️ Usa `$set` para modificar solo algunos campos y **no perder el resto**.
 
@@ -75,40 +83,43 @@ Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobr
 
 ### 🔹 Eliminación
 
-| Comando | Descripción | Ejemplo |
-|----------|--------------|----------|
-| `deleteOne()` | Elimina el primer documento que cumpla la condición. | `db.alumnos.deleteOne({nombre:"Luis"})` |
-| `deleteMany()` | Elimina todos los documentos que cumplan la condición. | `db.alumnos.deleteMany({nota:{$lt:5}})` |
+| Comando | Descripción |
+|----------|--------------|
+| `deleteOne()` | Elimina el primer documento que cumpla la condición.<br>**Ejemplo:** `db.alumnos.deleteOne({nombre:"Luis"})` |
+| `deleteMany()` | Elimina todos los documentos que cumplan la condición.<br>**Ejemplo:** `db.alumnos.deleteMany({nota:{$lt:5}})` |
+
 
 ---
 
 ## 🔹 Consultas avanzadas y ordenación
 
-| Comando | Descripción | Ejemplo |
-|----------|--------------|----------|
-| `sort()` | Ordena los resultados. `1` ascendente, `-1` descendente. | `db.alumnos.find().sort({nota:-1})` |
-| `limit()` | Limita el número de resultados. | `db.alumnos.find().limit(3)` |
-| `countDocuments()` | Devuelve el número de documentos que cumplen un filtro. | `db.alumnos.countDocuments({nota:{$gte:5}})` |
+| Comando | Descripción |
+|----------|--------------|
+| `sort()` | Ordena los resultados. `1` ascendente, `-1` descendente.<br>**Ejemplo:** `db.alumnos.find().sort({nota:-1})` |
+| `limit()` | Limita el número de resultados.<br>**Ejemplo:** `db.alumnos.find().limit(3)` |
+| `countDocuments()` | Devuelve el número de documentos que cumplen un filtro.<br>**Ejemplo:** `db.alumnos.countDocuments({nota:{$gte:5}})` |
+
 
 ---
 
 ## 🔹 Índices
 
-| Comando | Descripción | Ejemplo |
-|----------|--------------|----------|
-| `createIndex({campo:1})` | Crea un índice ascendente. | `db.alumnos.createIndex({nombre:1})` |
-| `getIndexes()` | Muestra los índices existentes. | `db.alumnos.getIndexes()` |
-| `dropIndex("nombre_1")` | Elimina un índice. | `db.alumnos.dropIndex("nombre_1")` |
+| Comando | Descripción |
+|----------|--------------|
+| `createIndex({campo:1})` | Crea un índice ascendente.<br>**Ejemplo:** `db.alumnos.createIndex({nombre:1})` |
+| `getIndexes()` | Muestra los índices existentes.<br>**Ejemplo:** `db.alumnos.getIndexes()` |
+| `dropIndex("nombre_1")` | Elimina un índice.<br>**Ejemplo:** `db.alumnos.dropIndex("nombre_1")` |
 
 ---
 
 ## 🔹 Información útil del entorno
 
-| Comando | Descripción | Ejemplo |
-|----------|--------------|----------|
-| `db.stats()` | Muestra estadísticas sobre la base de datos. | `db.stats()` |
-| `db.coleccion.stats()` | Muestra estadísticas sobre una colección. | `db.alumnos.stats()` |
-| `db.version()` | Devuelve la versión de MongoDB. | `db.version()` |
+| Comando | Descripción |
+|----------|--------------|
+| `db.stats()` | Muestra estadísticas sobre la base de datos.<br>**Ejemplo:** `db.stats()` |
+| `db.coleccion.stats()` | Muestra estadísticas sobre una colección.<br>**Ejemplo:** `db.alumnos.stats()` |
+| `db.version()` | Devuelve la versión de MongoDB.<br>**Ejemplo:** `db.version()` |
+
 
 ---
 
@@ -146,20 +157,20 @@ Cada etapa del *pipeline* (tubería) transforma los datos paso a paso.
 Cada etapa (stage) se representa mediante un objeto precedido por $, que indica la operación a realizar.
 
 
-| Etapa | Descripción | Ejemplo |
-|--------|--------------|----------|
-| `$match` | Filtra documentos (equivalente a `WHERE`). | `{ $match: { ciudad: "Valencia" } }` |
-| `$project` | Selecciona campos específicos o crea nuevos. | `{ $project: { _id:0, nombre:1, nota:1 } }` |
-| `$sort` | Ordena los resultados. | `{ $sort: { nota: -1 } }` |
-| `$limit` | Limita el número de resultados. | `{ $limit: 5 }` |
-| `$skip` | Omite un número de documentos. | `{ $skip: 10 }` |
-| `$group` | Agrupa los documentos por un campo y calcula valores agregados (como `COUNT`, `SUM`, `AVG`). | `{ $group: { _id: "$curso", media: { $avg: "$nota" } } }` |
-| `$count` | Devuelve el número total de documentos resultantes. | `{ $count: "total" }` |
-| `$lookup` | Realiza una unión entre colecciones (similar a `JOIN`). | `{ $lookup: { from: "profesores", localField: "idProfesor", foreignField: "_id", as: "infoProfesor" } }` |
-| `$unwind` | Descompone arrays en múltiples documentos. | `{ $unwind: "$aficiones" }` |
+| Etapa | Descripción |
+|--------|--------------|
+| `$match` | Filtra documentos (equivalente a `WHERE`).<br>**Ejemplo:** `{ $match: { ciudad: "Valencia" } }` |
+| `$project` | Selecciona campos específicos o crea nuevos.<br>**Ejemplo:** `{ $project: { _id:0, nombre:1, nota:1 } }` |
+| `$sort` | Ordena los resultados.<br>**Ejemplo:** `{ $sort: { nota: -1 } }` |
+| `$limit` | Limita el número de resultados.<br>**Ejemplo:** `{ $limit: 5 }` |
+| `$skip` | Omite un número de documentos.<br>**Ejemplo:** `{ $skip: 10 }` |
+| `$group` | Agrupa los documentos por un campo y calcula valores agregados (como `COUNT`, `SUM`, `AVG`).<br>**Ejemplo:** `{ $group: { _id: "$curso", media: { $avg: "$nota" } } }` |
+| `$count` | Devuelve el número total de documentos resultantes.<br>**Ejemplo:** `{ $count: "total" }` |
+| `$lookup` | Realiza una unión entre colecciones (similar a `JOIN`).<br>**Ejemplo:** `{ $lookup: { from: "profesores", localField: "idProfesor", foreignField: "_id", as: "infoProfesor" } }` |
+| `$unwind` | Descompone arrays en múltiples documentos.<br>**Ejemplo:** `{ $unwind: "$aficiones" }` |
 
 
-## ✅ Resumen visual
+## ✅ Resumen
 
 | Categoría | Comandos clave |
 |------------|----------------|

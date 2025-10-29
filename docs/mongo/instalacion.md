@@ -55,7 +55,7 @@ En ese caso, crearemos otro directorio alternativo y, en el momento de arrancar 
 
 ▶️ La forma de arrancar el servidor será:
 
-    <directori arrel MongoDB>./bin/mongod
+    <directoro raíz de MongoDB>./bin/mongod
 
 Opcionalmente, podemos indicarle a MongoDB dónde se encuentra la base de datos (si no lo especificamos, asumirá por defecto que está en /data/db):
 
@@ -105,7 +105,7 @@ El archivo correspondiente es: [https://downloads.mongodb.com/compass/mongosh-2.
 
 Sencillamente descomprimiremos este archivo en el lugar que queramos, y con eso ya tendremos hecha la instalación básica.
 
-    <directori arrel Mongosh>/bin/mongosh
+    <directori raíz de  Mongosh>/bin/mongosh
 
     ./bin/mongosh
 

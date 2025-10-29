@@ -40,6 +40,7 @@ nav:
   - 🔹Instalación: mongo/instalacion.md
   - 🔹Comandos: mongo/comandos.md
   - 🔹Conexión: mongo/conexion.md
+  - 📝Ejercicio obligatorio: mongo/Ejercicio.md
 - FIREBASE:
   - 🔹Conexión: firebase/Firebase.md
 

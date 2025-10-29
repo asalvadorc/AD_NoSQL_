@@ -1,6 +1,6 @@
 # MongoDB
 
-MongoDB es un sistema de gestión de bases de datos NoSQL **orientado a documentos**.
+📚 MongoDB es un sistema de gestión de bases de datos NoSQL **orientado a documentos**.
 A diferencia de las bases de datos relacionales, que almacenan la información en tablas con filas y columnas, MongoDB guarda los datos en **colecciones** formadas por documentos en formato **BSON** (una representación binaria de JSON).
 
 Cada documento es una **estructura flexible**, parecida a un objeto de programación, donde los datos se organizan en pares **clave–valor**.
