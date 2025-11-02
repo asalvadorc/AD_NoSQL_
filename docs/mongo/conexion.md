@@ -230,6 +230,7 @@ Existen principalmente dos maneras de crear y poblar una base de datos en MongoD
 
 Podemos crear los documentos directamente desde la consola de MongoDB o desde un programa,
 utilizando instrucciones **insertOne()** o **insertMany()** con los datos escritos a mano.
+
 Por ejemplo:
 
     db.peliculas.insertOne({
@@ -239,8 +240,8 @@ Por ejemplo:
         "any": 1990
     })
 
-Este método es útil para hacer pruebas rápidas o añadir registros sueltos,
-pero no resulta práctico cuando tenemos muchos datos.
+!!!Warning ""
+    Este método es útil para hacer pruebas rápidas o añadir registros sueltos, pero no resulta práctico cuando tenemos muchos datos.
 
 **2.  Lectura desde un archivo JSON**{.azul}
 
@@ -251,58 +252,61 @@ A partir de este archivo, un programa en Kotlin puede leer los datos y añadirlo
 a una colección MongoDB mediante las funciones insertOne() o insertMany().
 
 En este ejemplo veremos cómo crear una base de datos MongoDB a partir de un archivo JSON llamado
-[peliculas.json](peliculas.json), que ubicaremos en un paquete llamado pelicualas (**src/main/kotlin/peliculas/**).
+**[peliculas.json](peliculas.json)**, que ubicaremos en un paquete llamado pelicualas (**src/main/kotlin/peliculas/**).
 
-El programa, desarrollado en Kotlin, realiza los siguientes pasos:
+Vamos a desarrollar dos programas equivalentes, pero utilizando dos librerías diferentes para el tratamiento de los datos JSON:
+**kotlinx.serialization** y **Jackson**.
 
-- Lee el archivo JSON usando la librería kotlinx.serialization/Jackson.
-- Convierte cada elemento en un objeto de la clase Pelicula.
-- Inserta los objetos directamente en MongoDB usando KMongo.
-- Recupera y muestra los datos almacenados en la colección.
+Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](peliculas.json)**, y realizarán exactamente los mismos pasos:
 
+- Lee el archivo JSON.
+- Convertir los datos leídos en una lista de objetos de la clase Pelicula.
+- Insertar los objetos en una colección de MongoDB llamada peliculas, utilizando la librería KMongo, que permite trabajar directamente con clases de datos Kotlin (data class).
+- Recupera y muestra los datos almacenados en la colección.  
 
-**Archivo JSON**
+--
 
-    [
-    {
-        "titol": "La noia terrible",
-        "titol_or": "Das schreckliche Mädchen",
-        "director": "Michael Verhoeven",
-        "genere": "Drama",
-        "durada": 93,
-        "any": 1990,
-        "actors": ["Lena Stolze", "Hans-Reinhard Müller", "Monika Baumgartner"],
-        "sinopsi": "Una noia alemanya que viu a Passau inicia una investigació sobre el passat..."
-    },
-    {
-        "titol": "Hardcore",
-        "titol_or": null,
-        "director": "Paul Schrader",
-        "genere": "Comedia",
-        "durada": 109,
-        "any": 1979,
-        "actors": ["Peter Boyle", "George C. Scott", "Season Hubley"],
-        "sinopsi": "Un home profundament religiós contracta un detectiu per trobar la seua filla..."
-    }
-    ]
+**🔹Estructura dle archivo JSON**
 
-
-**Estructura del proyecto**
-
-    PeliculasMongo/
-    ├─ build.gradle.kts
-    ├─ src/
-    │   └─ main/
-    │       └─ kotlin/
-    │           └─ peliculas/
-    │               ├─ Pelicula.kt      → clase de datos serializable
-    │               └─ Main.kt          → programa principal con KMongo
-                    └─ Peliculas.json   → archivo con las películas
+        [
+        {
+            "titol": "La noia terrible",
+            "titol_or": "Das schreckliche Mädchen",
+            "director": "Michael Verhoeven",
+            "genere": "Drama",
+            "durada": 93,
+            "any": 1990,
+            "actors": ["Lena Stolze", "Hans-Reinhard Müller", "Monika Baumgartner"],
+            "sinopsi": "Una noia alemanya que viu a Passau inicia una investigació sobre el passat..."
+        },
+        {
+            "titol": "Hardcore",
+            "titol_or": null,
+            "director": "Paul Schrader",
+            "genere": "Comedia",
+            "durada": 109,
+            "any": 1979,
+            "actors": ["Peter Boyle", "George C. Scott", "Season Hubley"],
+            "sinopsi": "Un home profundament religiós contracta un detectiu per trobar la seua filla..."
+        }
+        ]
 
 
-**MainSerialization.kt**
 
-Lee el archivo JSON usando la librería kotlinx.serialization.
+**🔹Estructura del proyecto**
+
+        PeliculasMongo/
+        ├─ build.gradle.kts
+        ├─ src/
+        │   └─ main/
+        │       └─ kotlin/
+        │           └─ peliculas/
+        │               ├─ MainSerialization.kt      → programa con kotlinx.serialization
+        │               └─ MainJackson.kt            → programa con Jackson
+                        └─ peliculas.json            → archivo con las películas
+
+
+**🔹Programa utilizando kotlinx.serialization**: MainSerialization.kt
 
     package peliculas
 
@@ -340,7 +344,7 @@ Lee el archivo JSON usando la librería kotlinx.serialization.
         println("📖 Leyendo archivo $ruta ...")
 
         try {
-            // 1️⃣ Leer y deserializar las películas con kotlinx.serialization
+            // Leer y deserializar las películas con kotlinx.serialization
             val json = Json { ignoreUnknownKeys = true }
             val peliculas: List<Pelicula> = json.decodeFromString(
                 ListSerializer(Pelicula.serializer()),
@@ -363,7 +367,7 @@ Lee el archivo JSON usando la librería kotlinx.serialization.
 
             // Consultar y mostrar todas
             val lista = coleccion.find().toList()
-            println("📜 Contenido de la colección en MongoDB:\n")
+            println("📜Contenido de la colección en MongoDB:\n")
 
             var i = 1
             for (p in lista) {
@@ -386,9 +390,7 @@ Lee el archivo JSON usando la librería kotlinx.serialization.
         }
     }
 
-**MainJackson.kt**
-
-Lee el archivo JSON usando la librería Jackson.
+**🔹Programa utilizando Jackson**: MainJackson.kt
 
     package peliculas
 
@@ -427,27 +429,27 @@ Lee el archivo JSON usando la librería Jackson.
         println("📖 Leyendo archivo $ruta ...")
 
         try {
-            // 1️⃣ Crear el mapper de Jackson
+            // Crear el mapper de Jackson
             val mapper = jacksonObjectMapper()
 
-            // 2️⃣ Leer el archivo y convertirlo en lista de Pelicula
+            // Leer el archivo y convertirlo en lista de Pelicula
             val peliculas: List<Pelicula2> = mapper.readValue(archivo)
 
-            println("✅ Se han leído ${peliculas.size} películas del archivo.")
+            println("Se han leído ${peliculas.size} películas del archivo.")
 
-            // 3️⃣ Conectarse a MongoDB con KMongo
+            // Conectarse a MongoDB con KMongo
             val cliente = KMongo.createClient("mongodb://localhost:27017")
             val baseDatos = cliente.getDatabase("peliculas_db")
             val coleccion = baseDatos.getCollection<Pelicula2>()
 
-            // 4️⃣ Limpiar colección (opcional)
+            // Limpiar colección (opcional)
             coleccion.drop()
 
-            // 5️⃣ Insertar todas las películas de golpe
+            // Insertar todas las películas de golpe
             coleccion.insertMany(peliculas)
             println("💾 ${peliculas.size} películas insertadas correctamente.\n")
 
-            // 6️⃣ Mostrar todas las películas
+            // Mostrar todas las películas
             val lista = coleccion.find().toList()
             println("📜 Contenido de la colección en MongoDB:\n")
             var i = 1
@@ -462,18 +464,16 @@ Lee el archivo JSON usando la librería Jackson.
                 i++
             }
 
-            // 7️⃣ Consultar solo los dramas, ordenados por título
-            println("\n🎭 --- Películas de género 'Drama' ---\n")
-            val dramas = coleccion.find(Pelicula::genere eq "Drama").sortedBy { it.titol }
-            for (p in dramas) {
-                println("${p.titol} - ${p.director} (${p.any})")
-            }
-
-            cliente.close()
-            println("\n🔚 Proceso finalizado correctamente.")
+           cliente.close()
+            println("\n Proceso finalizado correctamente.")
 
         } catch (e: Exception) {
             println("❌ Error durante la ejecución: ${e.message}")
             e.printStackTrace()
         }
     }
+
+
+**🔹Salida esperada:**
+
+![alt text](../img/mongoejemplo.png)
