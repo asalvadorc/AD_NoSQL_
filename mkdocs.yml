@@ -41,8 +41,16 @@ nav:
   - 🔹Comandos: mongo/comandos.md
   - 🔹Conexión: mongo/conexion.md
   - 📝Ejercicio obligatorio: mongo/Ejercicio.md
-- FIREBASE:
-  - 🔹Conexión: firebase/Firebase.md
+#- FIREBASE:
+#  - 🔹Introducción: firebase/Firebase.md
+#  - 🔹Crear una Aplicación: firebase/aplicacion.md
+#  - 🔹Realtime DataBase: firebase/Realtime.md
+#  - 🔹Cloud Firestore: firebase/Firestore.md
+
+
+
+
+
 
  
   
