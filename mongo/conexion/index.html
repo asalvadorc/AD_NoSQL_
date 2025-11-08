@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://asalvadorc.github.io/AD_BD_NoSQL_/mongo/conexion/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>🔹Conexión - AD - Accés a Dades - BD NoSQL</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+        <link href="../../img/favicon.ico" rel="stylesheet" />
+        <link href="../../css/copy-button.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\ud83d\udd39Conexi\u00f3n";
+        var mkdocs_page_input_path = "mongo/conexion.md";
+        var mkdocs_page_url = "/AD_BD_NoSQL_/mongo/conexion/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../assets/logocaminas.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">BD Documentales nativas</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../RA_CE/">🔹RA y CE</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Introduccion/">🔹Introducción</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MONGO</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Mongo/">🔹Introducción</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../json/">🔹JSON</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../instalacion/">🔹Instalación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../comandos/">🔹Comandos</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">🔹Conexión</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#kotlin-gradle-driver-oficial">🔹Kotlin + Gradle + Driver oficial</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#kotlin-gradle-kmongo">🔹Kotlin + Gradle + KMongo</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#control-de-errores">🔹Control de errores</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#construir-una-base-de-datos-mongodb">🔹Construir una base de datos MongoDB</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Ejercicio/">📝Ejercicio obligatorio</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AD - Accés a Dades - BD NoSQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">MONGO</li>
+      <li class="breadcrumb-item active">🔹Conexión</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="conexion">🔹Conexión</h1>
+<p>Para conectar una aplicación escrita en <strong>Kotlin</strong> con una base de datos <strong>MongoDB</strong>, existen dos opciones principales, según el objetivo y el nivel de control que se necesite sobre las operaciones:</p>
+<p>1️⃣ Conexión con el controlador oficial de MongoDB (<strong>MongoDB Driver</strong>)</p>
+<p>Es la opción más directa y de bajo nivel. Permite trabajar con las clases del paquete com.mongodb o org.bson para realizar operaciones CRUD (crear, leer, actualizar y eliminar) sobre las colecciones.
+Se utiliza cuando se quiere tener control total sobre las consultas, la conexión y la conversión de documentos BSON a objetos Kotlin.</p>
+<p>2️⃣ Conexión mediante una librería de mapeo (ORM/ODM), como <strong>KMongo</strong></p>
+<p>KMongo es una capa de abstracción sobre el driver oficial, diseñada específicamente para Kotlin.
+Permite trabajar con data classes y consultas tipadas, simplificando el código y haciéndolo más idiomático.
+Es la opción más recomendada para proyectos educativos o empresariales donde se busca claridad, seguridad de tipos y menor código repetitivo.</p>
+<p>A continuación veremos un ejemplo práctico de cada una de las dos formas de conectar Kotlin con MongoDB. Ambos ejemplos se ejecutarán sobre <strong>MongoDB Community Server</strong> en local y se crearán con <strong>Gradle</strong> desde IntelliJ.</p>
+<p>3️⃣ Creamos un nuevo proyecto llamado <strong>BDNoSQL</strong>.</p>
+<p><img alt="alt text" src="../../img/mongo1.png" /></p>
+<h2 id="kotlin-gradle-driver-oficial">🔹Kotlin + Gradle + Driver oficial</h2>
+<p><strong class="azul">1. Añadir las dependencias en Gradle</strong></p>
+<p>En el archivo <strong>build.gradle.kts</strong>, dentro del bloque dependencies, añadimos:</p>
+<pre><code>    dependencies {
+        implementation("org.mongodb:mongodb-driver-sync:5.2.0")
+    }
+</code></pre>
+<p><strong class="azul">2. Ejemplo sobre la colección Libros</strong></p>
+<p>Crea un archivo <strong>main.kt</strong> en un paquete nuevo llamado <strong>mongo</strong> con el siguiente código:</p>
+<p><img alt="alt text" src="../../img/mongo2.png" /></p>
+<pre><code>import com.mongodb.client.MongoClients
+import com.mongodb.client.MongoCollection
+import com.mongodb.client.MongoDatabase
+import org.bson.Document
+
+fun main() {
+    // 1Conexión al servidor local
+    val uri = "mongodb://localhost:27017"
+    val client = MongoClients.create(uri)
+
+    // Seleccionar base de datos
+    val database: MongoDatabase = client.getDatabase("biblioteca")
+
+    // Seleccionar colección
+    val coleccion: MongoCollection&lt;Document&gt; = database.getCollection("libros")
+
+    // Insertar un documento
+    val doc = Document("titulo", "1984")
+        .append("autor", "George Orwell")
+        .append("año", 1949)
+
+    coleccion.insertOne(doc)
+    println("Documento insertado correctamente.")
+
+    // Leer documentos
+    for (libro in coleccion.find()) {
+        println(libro.toJson())
+    }
+
+    client.close()
+}
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Advertencia</p>
+<p>Al ejecutar el programa os aparecerá el siguiene mensaje:</p>
+<p><img alt="alt text" src="../../img/mongo3_msg.png" /> </p>
+<p>Esto no es un error, solo una advertencia. MongoDB intenta usar <strong>SLF4J</strong> (Simple Logging Facade for Java) para mostrar mensajes de registro (logs) sobre la conexión, operaciones, etc.<br />
+Como tu proyecto no incluye ninguna librería de logging, te avisa de que no podrá mostrar esos logs internos, pero el programa sigue funcionando perfectamente.</p>
+</div>
+<h2 id="kotlin-gradle-kmongo">🔹Kotlin + Gradle + KMongo</h2>
+<p><strong class="azul">1. Añadir las dependencias en Gradle</strong></p>
+<p>En el <strong>archivo build.gradle.kts</strong>, dentro del bloque dependencies, añadimos:</p>
+<pre><code>    dependencies {
+        implementation("org.litote.kmongo:kmongo:5.1.0")
+    }
+</code></pre>
+<p><strong class="azul">2. Ejemplo sobre la colección Libros</strong></p>
+<p>Crea un archivo <strong>main.kt</strong> en un paquete nuevo llamado <strong>kmongo</strong> con el siguiente código:</p>
+<p><img alt="alt text" src="../../img/mongo4.png" /></p>
+<pre><code>    import org.litote.kmongo.*
+
+    data class Libros(val titulo: String, val autor: String, val año: Int)
+
+    fun main() {
+        // Crear conexión
+        val client = KMongo.createClient() // Por defecto: mongodb://localhost:27017
+        val database = client.getDatabase("biblioteca")
+        val coleccion = database.getCollection&lt;Libros&gt;()
+
+        // Insertar datos
+        val libro = Libros("Fahrenheit 451", "Ray Bradbury", 1953)
+        coleccion.insertOne(libro)
+        println("Libro insertado correctamente")
+
+        // Consultar datos
+        val resultados = coleccion.find()
+        resultados.forEach { println(it) }
+
+        client.close()
+    }
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Aparecerán los dos libros insertados, tanto en el ejemplo anterior como en este, ya que la colección Libros es la misma.</p>
+<p><img alt="alt text" src="../../img/mongo4_msg.png" /></p>
+</div>
+<h2 id="control-de-errores">🔹Control de errores</h2>
+<p>Cuando un programa se conecta a una base de datos como MongoDB, siempre existe la posibilidad de que ocurran errores: la base de datos puede no estar disponible, los datos pueden ser incorrectos o una operación puede fallar por un conflicto o por formato inválido.</p>
+<p>Por eso, es importante incluir control de errores en el código, especialmente en las operaciones de conexión y en las operaciones CRUD (insertar, leer, actualizar, eliminar).</p>
+<p>El control de errores se hace con bloques <strong>try-catch</strong>. Así puedes capturar las excepciones y evitar que el programa se detenga bruscamente.</p>
+<p><strong>Buenas prácticas:</strong></p>
+<ul>
+<li>Verificar que el servidor MongoDB está en ejecución antes de conectar.</li>
+<li>Usar <strong>try-catch</strong> en las secciones críticas del programa (especialmente conexión e inserción).</li>
+<li>Mostrar mensajes claros al usuario para facilitar el diagnóstico.</li>
+<li>Cerrar el cliente con client.close() en un bloque <strong>finally</strong> si se usa una conexión persistente.<pre><code>try {
+    val client = KMongo.createClient() // Por defecto: mongodb://localhost:27017
+    val database = client.getDatabase("biblioteca")
+    val coleccion = database.getCollection&lt;Libros&gt;()
+
+    // Insertar datos
+    val libro = Libros("Fahrenheit 451", "Ray Bradbury", 1953)
+    coleccion.insertOne(libro)
+    println("Libro insertado correctamente")
+
+    // Consultar datos
+    val resultados = coleccion.find()
+    resultados.forEach { println(it) }
+
+    client.close()
+
+} catch (e: Exception) {
+    println("⚠️ Error al acceder a MongoDB: ${e.message}")
+
+} finally { //si se usa una conexión persistente.
+    // Cierre seguro del cliente
+    client?.close()
+    println("🔒 Conexión cerrada.")
+}
+</code></pre>
+</li>
+</ul>
+<h2 id="construir-una-base-de-datos-mongodb">🔹Construir una base de datos MongoDB</h2>
+<p>Existen principalmente dos maneras de crear y poblar una base de datos en MongoDB:</p>
+<p><strong class="azul">1.  Inserción manual de documentos</strong></p>
+<p>Podemos crear los documentos directamente desde la consola de MongoDB o desde un programa,
+utilizando instrucciones <strong>insertOne()</strong> o <strong>insertMany()</strong> con los datos escritos a mano.</p>
+<p>Por ejemplo: Insertar un película en una colección llamada peliculas.</p>
+<pre><code>db.peliculas.insertOne({
+    "titol": "La noia terrible",
+    "director": "Michael Verhoeven",
+    "genere": "Drama",
+    "any": 1990
+})
+</code></pre>
+<div class="admonition warning">
+<p>Este método es útil para hacer pruebas rápidas o añadir registros sueltos, pero no resulta práctico cuando tenemos muchos datos.</p>
+</div>
+<p><strong class="azul">2.  Lectura desde un archivo JSON</strong></p>
+<p>Cuando ya disponemos de un conjunto de datos estructurados (por ejemplo, en un <strong>archivo json</strong>),
+podemos leer el archivo desde un programa y <strong>convertir cada elemento en un documento MongoDB</strong>.
+Esto permite crear colecciones completas de forma automática, sin escribir los documentos uno a uno.
+A partir de este archivo, un programa en Kotlin puede leer los datos y añadirlos automáticamente
+a una colección MongoDB mediante las funciones insertOne() o insertMany().</p>
+<p>En este ejemplo veremos cómo crear una base de datos MongoDB, utilizando el controlador <strong>KMongo</strong>, a partir de un archivo JSON llamado
+<strong><a href="../peliculas.json">peliculas.json</a></strong>, que ubicaremos en un paquete nuevo llamado <strong>peliculas</strong>, dentro del paquete <strong>kmongo</strong> (<strong>src/main/kotlin/kmongo/peliculas/</strong>).</p>
+<p>Vamos a desarrollar dos programas equivalentes, pero utilizando dos librerías diferentes para el tratamiento de los datos JSON:
+<strong>kotlinx.serialization</strong> y <strong>Jackson</strong>.</p>
+<p>Ambos programas trabajarán con el mismo archivo de datos <strong><a href="../peliculas.json">peliculas.json</a></strong>, y realizarán exactamente los mismos pasos:</p>
+<ul>
+<li>Lee el archivo JSON.</li>
+<li>Convertir los datos leídos en una lista de objetos de la clase Pelicula.</li>
+<li>Insertar los objetos en una colección de MongoDB llamada peliculas, utilizando la librería <strong>KMongo</strong>, que permite trabajar directamente con clases de datos Kotlin (data class).</li>
+<li>Recupera y muestra los datos almacenados en la colección.  </li>
+</ul>
+<p>--</p>
+<p><strong>🔹Estructura del archivo JSON</strong></p>
+<pre><code>    [
+    {
+        "titol": "La noia terrible",
+        "titol_or": "Das schreckliche Mädchen",
+        "director": "Michael Verhoeven",
+        "genere": "Drama",
+        "durada": 93,
+        "any": 1990,
+        "actors": ["Lena Stolze", "Hans-Reinhard Müller", "Monika Baumgartner"],
+        "sinopsi": "Una noia alemanya que viu a Passau inicia una investigació sobre el passat..."
+    },
+    {
+        "titol": "Hardcore",
+        "titol_or": null,
+        "director": "Paul Schrader",
+        "genere": "Comedia",
+        "durada": 109,
+        "any": 1979,
+        "actors": ["Peter Boyle", "George C. Scott", "Season Hubley"],
+        "sinopsi": "Un home profundament religiós contracta un detectiu per trobar la seua filla..."
+    }
+    ]
+</code></pre>
+<p><strong>🔹Estructura del proyecto</strong></p>
+<pre><code>    BDNoSQL/
+        ├─ build.gradle.kts
+        ├─ src/
+            └─ main/
+                └─ kotlin/
+                    └─ kmongo/
+                        └─ peliculas/
+                            ├─ MainSerialization.kt      → programa con kotlinx.serialization
+                            └─ MainJackson.kt            → programa con Jackson
+                            └─ peliculas.json            → archivo con las películas
+</code></pre>
+<p><strong>🔹Programa utilizando kotlinx.serialization</strong>: MainSerialization.kt</p>
+<pre><code>    package kmongo.peliculas
+
+
+    import kotlinx.serialization.Serializable
+    import kotlinx.serialization.builtins.ListSerializer
+    import kotlinx.serialization.json.Json
+    import org.litote.kmongo.KMongo
+    import org.litote.kmongo.getCollection
+    import java.io.File
+
+
+    @Serializable
+    data class PeliculaSerializada(
+        val titol: String = "",
+        val titol_or: String? = null,
+        val director: String = "",
+        val genere: String = "",
+        val durada: Int = 0,
+        val any: Int = 0,
+        val actors: List&lt;String&gt;? = null,
+        val sinopsi: String = ""
+    )
+
+
+    fun main() {
+        val ruta = "src/main/kotlin/kmongo/peliculas/peliculas.json"
+        val archivo = File(ruta)
+
+        if (!archivo.exists()) {
+            println("❌ No se ha encontrado el archivo $ruta")
+            return
+        }
+
+        println("📖 Leyendo archivo $ruta ...")
+
+        try {
+            // Leer y deserializar las películas con kotlinx.serialization
+            val json = Json { ignoreUnknownKeys = true }
+            val peliculas: List&lt;PeliculaSerializada&gt; = json.decodeFromString(
+                ListSerializer(PeliculaSerializada.serializer()),
+                archivo.readText(Charsets.UTF_8)
+            )
+
+            println("✅ Se han leído ${peliculas.size} películas del archivo.")
+
+            // Conexión a MongoDB con KMongo
+            val cliente = KMongo.createClient("mongodb://localhost:27017")
+            val bd = cliente.getDatabase("peliculas_db")
+            val coleccion = bd.getCollection&lt;PeliculaSerializada&gt;()
+
+            // Limpiar colección
+            coleccion.drop()
+
+            // Insertar todas las películas directamente (sin Document)
+            coleccion.insertMany(peliculas)
+            println("${peliculas.size} películas insertadas correctamente.\n")
+
+            // Consultar y mostrar todas
+            val lista = coleccion.find().toList()
+            println("Contenido de la colección en MongoDB:\n")
+
+            var i = 1
+            for (p in lista) {
+                println("🎞️ $i. ${p.titol} (${p.any})")
+                println("   🎬 Director: ${p.director}")
+                println("   🧩 Género: ${p.genere}")
+                println("   ⏱️ Duración: ${p.durada} min")
+                if (p.actors != null) println("   👥 Actores: ${p.actors.joinToString(", ")}")
+                println("   📝 Sinopsis: ${p.sinopsi.take(100)}...")
+                println("---------------------------------------------------------")
+                i++
+            }
+    /*
+            // Ejemplo de consulta: solo dramas ordenados por título
+            val dramas = coleccion.find(Pelicula::genere eq "Drama").sortedBy { it.titol }
+
+            println("\n --- Películas de género 'Drama' ---\n")
+            for (p in dramas) {
+                println("${p.titol} - ${p.director} (${p.any})")
+            }
+    */
+            cliente.close()
+            println("\n Proceso finalizado correctamente.")
+
+        } catch (e: Exception) {
+            println("❌ Error durante la ejecución: ${e.message}")
+            e.printStackTrace()
+        }
+    }
+</code></pre>
+<p><strong>🔹Programa utilizando Jackson</strong>: MainJackson.kt</p>
+<pre><code>    package kmongo.peliculas
+
+
+
+    import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+    import com.fasterxml.jackson.module.kotlin.readValue
+    import org.litote.kmongo.KMongo
+    import org.litote.kmongo.eq
+    import org.litote.kmongo.getCollection
+    import java.io.File
+    import org.litote.kmongo.Id
+    import org.litote.kmongo.newId
+
+    data class Pelicula(
+        val _id: Id&lt;Pelicula&gt; = newId(),
+        val titol: String = "",
+        val titol_or: String? = null,
+        val director: String = "",
+        val genere: String = "",
+        val durada: Int = 0,
+        val any: Int = 0,
+        val actors: List&lt;String&gt;? = null,
+        val sinopsi: String = ""
+    )
+
+    fun main() {
+        val ruta = "src/main/kotlin/kmongo/peliculas/peliculas.json"
+        val archivo = File(ruta)
+
+        if (!archivo.exists()) {
+            println("❌ No se ha encontrado el archivo $ruta")
+            return
+        }
+
+        println("Leyendo archivo $ruta ...")
+
+        try {
+            // Crear el mapper de Jackson
+            val mapper = jacksonObjectMapper()
+
+            // Leer el archivo y convertirlo en lista de Pelicula
+            val peliculas: List&lt;Pelicula&gt; = mapper.readValue(archivo)
+
+            println("✅ Se han leído ${peliculas.size} películas del archivo.")
+
+            // Conectarse a MongoDB con KMongo
+            val cliente = KMongo.createClient("mongodb://localhost:27017")
+            val baseDatos = cliente.getDatabase("peliculas_db")
+            val coleccion = baseDatos.getCollection&lt;Pelicula&gt;()
+
+            // Limpiar colección (opcional)
+            coleccion.drop()
+
+            // Insertar todas las películas de golpe
+            coleccion.insertMany(peliculas)
+            println(" ${peliculas.size} películas insertadas correctamente.\n")
+
+            // Mostrar todas las películas
+            val lista = coleccion.find().toList()
+            println("Contenido de la colección en MongoDB:\n")
+            var i = 1
+            for (p in lista) {
+                println("🎞️ $i. ${p.titol} (${p.any})")
+                println("   🎬 Director: ${p.director}")
+                println("   🧩 Género: ${p.genere}")
+                println("   ⏱️ Duración: ${p.durada} min")
+                if (p.actors != null) println("   👥 Actores: ${p.actors.joinToString(", ")}")
+                println("   📝 Sinopsis: ${p.sinopsi.take(100)}...")
+                println("---------------------------------------------------------")
+                i++
+            }
+
+            // Consultar solo los dramas, ordenados por título
+            println("\n--- Películas de género 'Drama' ---\n")
+            val dramas = coleccion.find(Pelicula::genere eq "Drama").sortedBy { it.titol }
+            for (p in dramas) {
+                println("${p.titol} - ${p.director} (${p.any})")
+            }
+
+            cliente.close()
+            println("\n Proceso finalizado correctamente.")
+
+        } catch (e: Exception) {
+            println("❌ Error durante la ejecución: ${e.message}")
+            e.printStackTrace()
+        }
+    }
+</code></pre>
+<p><strong>🔹Salida esperada:</strong></p>
+<p><img alt="alt text" src="../../img/mongoejemplo.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../comandos/" class="btn btn-neutral float-left" title="🔹Comandos"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Ejercicio/" class="btn btn-neutral float-right" title="📝Ejercicio obligatorio">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../comandos/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Ejercicio/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/copy-button.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
