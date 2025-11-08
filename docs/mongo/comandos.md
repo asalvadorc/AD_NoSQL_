@@ -88,6 +88,22 @@ Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobr
 | `deleteOne()` | Elimina el primer documento que cumpla la condición.<br>**Ejemplo:** `db.alumnos.deleteOne({nombre:"Luis"})` |
 | `deleteMany()` | Elimina todos los documentos que cumplan la condición.<br>**Ejemplo:** `db.alumnos.deleteMany({nota:{$lt:5}})` |
 
+---
+
+**Ejemplo**{.azul}
+
+
+    use biblioteca
+    db.libros.insertMany([
+    {titulo:"1984", autor:"Orwell", año:1949},
+    {titulo:"Fahrenheit 451", autor:"Bradbury", año:1953}
+    ])
+
+    db.libros.find()
+    db.libros.updateOne({titulo:"1984"}, {$set:{año:1950}})
+    db.libros.find({año:{$gte:1950}})
+    db.libros.deleteOne({titulo:"Fahrenheit 451"})
+
 
 ---
 
@@ -123,21 +139,6 @@ Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobr
 
 ---
 
-## 🔹 Ejemplo completo
-
-
-    use biblioteca
-    db.libros.insertMany([
-    {titulo:"1984", autor:"Orwell", año:1949},
-    {titulo:"Fahrenheit 451", autor:"Bradbury", año:1953}
-    ])
-
-    db.libros.find()
-    db.libros.updateOne({titulo:"1984"}, {$set:{año:1950}})
-    db.libros.find({año:{$gte:1950}})
-    db.libros.deleteOne({titulo:"Fahrenheit 451"})
-
----
 
 ## 🔹 Consultas avanzadas con `aggregate()`
 
@@ -168,6 +169,23 @@ Cada etapa (stage) se representa mediante un objeto precedido por $, que indica 
 | `$count` | Devuelve el número total de documentos resultantes.<br>**Ejemplo:** `{ $count: "total" }` |
 | `$lookup` | Realiza una unión entre colecciones (similar a `JOIN`).<br>**Ejemplo:** `{ $lookup: { from: "profesores", localField: "idProfesor", foreignField: "_id", as: "infoProfesor" } }` |
 | `$unwind` | Descompone arrays en múltiples documentos.<br>**Ejemplo:** `{ $unwind: "$aficiones" }` |
+
+
+
+**Ejemplo**{.azul}
+
+Supongamos que quieres agrupar los libros por autor y calcular el año promedio de publicación de sus obras:
+
+    db.libros.aggregate([
+    {
+        $group: {
+        _id: "$autor",              // agrupamos por autor
+        promedioAño: { $avg: "$año" }, // promedio de años
+        cantidadLibros: { $sum: 1 }    // número de libros por autor
+        }
+    }
+    ])
+
 
 
 ## ✅ Resumen
