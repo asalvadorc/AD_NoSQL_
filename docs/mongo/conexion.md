@@ -246,16 +246,16 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
 **🔹Estructura del proyecto**
 
 
-        PeliculasMongo/
-        ├─ build.gradle.kts
-        ├─ src/
-        │   └─ main/
-        │       └─ kotlin/
-        │           └─ kmongo/
-        │               └─ peliculas/
-        │                   ├─ MainSerialization.kt      → programa con kotlinx.serialization
-        │                   └─ MainJackson.kt            → programa con Jackson
-                            └─ peliculas.json            → archivo con las películas
+        BDNoSQL/
+            ├─ build.gradle.kts
+            ├─ src/
+                └─ main/
+                    └─ kotlin/
+                        └─ kmongo/
+                            └─ peliculas/
+                                ├─ MainSerialization.kt      → programa con kotlinx.serialization
+                                └─ MainJackson.kt            → programa con Jackson
+                                └─ peliculas.json            → archivo con las películas
 
 
 **🔹Programa utilizando kotlinx.serialization**: MainSerialization.kt
