@@ -260,186 +260,187 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
 
 **🔹Programa utilizando kotlinx.serialization**: MainSerialization.kt
 
-    package kmongo.peliculas
+        package kmongo.peliculas
 
 
-    import kotlinx.serialization.Serializable
-    import kotlinx.serialization.builtins.ListSerializer
-    import kotlinx.serialization.json.Json
-    import org.litote.kmongo.KMongo
-    import org.litote.kmongo.getCollection
-    import java.io.File
+        import kotlinx.serialization.Serializable
+        import kotlinx.serialization.builtins.ListSerializer
+        import kotlinx.serialization.json.Json
+        import org.litote.kmongo.KMongo
+        import org.litote.kmongo.getCollection
+        import java.io.File
 
 
-    @Serializable
-    data class Pelicula(
-        val titol: String = "",
-        val titol_or: String? = null,
-        val director: String = "",
-        val genere: String = "",
-        val durada: Int = 0,
-        val any: Int = 0,
-        val actors: List<String>? = null,
-        val sinopsi: String = ""
-    )
+        @Serializable
+        data class PeliculaSerializada(
+            val titol: String = "",
+            val titol_or: String? = null,
+            val director: String = "",
+            val genere: String = "",
+            val durada: Int = 0,
+            val any: Int = 0,
+            val actors: List<String>? = null,
+            val sinopsi: String = ""
+        )
 
 
-    fun main() {
-        val ruta = "src/main/kotlin/kmongo/peliculas/peliculas.json"
-        val archivo = File(ruta)
+        fun main() {
+            val ruta = "src/main/kotlin/kmongo/peliculas/peliculas.json"
+            val archivo = File(ruta)
 
-        if (!archivo.exists()) {
-            println("❌ No se ha encontrado el archivo $ruta")
-            return
+            if (!archivo.exists()) {
+                println("❌ No se ha encontrado el archivo $ruta")
+                return
+            }
+
+            println("📖 Leyendo archivo $ruta ...")
+
+            try {
+                // Leer y deserializar las películas con kotlinx.serialization
+                val json = Json { ignoreUnknownKeys = true }
+                val peliculas: List<PeliculaSerializada> = json.decodeFromString(
+                    ListSerializer(PeliculaSerializada.serializer()),
+                    archivo.readText(Charsets.UTF_8)
+                )
+
+                println("✅ Se han leído ${peliculas.size} películas del archivo.")
+
+                // Conexión a MongoDB con KMongo
+                val cliente = KMongo.createClient("mongodb://localhost:27017")
+                val bd = cliente.getDatabase("peliculas_db")
+                val coleccion = bd.getCollection<PeliculaSerializada>()
+
+                // Limpiar colección
+                coleccion.drop()
+
+                // Insertar todas las películas directamente (sin Document)
+                coleccion.insertMany(peliculas)
+                println("${peliculas.size} películas insertadas correctamente.\n")
+
+                // Consultar y mostrar todas
+                val lista = coleccion.find().toList()
+                println("Contenido de la colección en MongoDB:\n")
+
+                var i = 1
+                for (p in lista) {
+                    println("🎞️ $i. ${p.titol} (${p.any})")
+                    println("   🎬 Director: ${p.director}")
+                    println("   🧩 Género: ${p.genere}")
+                    println("   ⏱️ Duración: ${p.durada} min")
+                    if (p.actors != null) println("   👥 Actores: ${p.actors.joinToString(", ")}")
+                    println("   📝 Sinopsis: ${p.sinopsi.take(100)}...")
+                    println("---------------------------------------------------------")
+                    i++
+                }
+        /*
+                // Ejemplo de consulta: solo dramas ordenados por título
+                val dramas = coleccion.find(Pelicula::genere eq "Drama").sortedBy { it.titol }
+
+                println("\n --- Películas de género 'Drama' ---\n")
+                for (p in dramas) {
+                    println("${p.titol} - ${p.director} (${p.any})")
+                }
+        */
+                cliente.close()
+                println("\n Proceso finalizado correctamente.")
+
+            } catch (e: Exception) {
+                println("❌ Error durante la ejecución: ${e.message}")
+                e.printStackTrace()
+            }
         }
 
-        println("📖 Leyendo archivo $ruta ...")
-
-        try {
-            // 1Leer y deserializar las películas con kotlinx.serialization
-            val json = Json { ignoreUnknownKeys = true }
-            val peliculas: List<Pelicula> = json.decodeFromString(
-                ListSerializer(Pelicula.serializer()),
-                archivo.readText(Charsets.UTF_8)
-            )
-
-            println("✅ Se han leído ${peliculas.size} películas del archivo.")
-
-            // Conexión a MongoDB con KMongo
-            val cliente = KMongo.createClient("mongodb://localhost:27017")
-            val bd = cliente.getDatabase("peliculas_db")
-            val coleccion = bd.getCollection<Pelicula>()
-
-            // Limpiar colección
-            coleccion.drop()
-
-            // Insertar todas las películas directamente (sin Document)
-            coleccion.insertMany(peliculas)
-            println("${peliculas.size} películas insertadas correctamente.\n")
-
-            // Consultar y mostrar todas
-            val lista = coleccion.find().toList()
-            println("Contenido de la colección en MongoDB:\n")
-
-            var i = 1
-            for (p in lista) {
-                println("🎞️ $i. ${p.titol} (${p.any})")
-                println("   🎬 Director: ${p.director}")
-                println("   🧩 Género: ${p.genere}")
-                println("   ⏱️ Duración: ${p.durada} min")
-                if (p.actors != null) println("   👥 Actores: ${p.actors.joinToString(", ")}")
-                println("   📝 Sinopsis: ${p.sinopsi.take(100)}...")
-                println("---------------------------------------------------------")
-                i++
-            }
-    /*
-            // Ejemplo de consulta: solo dramas ordenados por título
-            val dramas = coleccion.find(Pelicula::genere eq "Drama").sortedBy { it.titol }
-
-            println("\n --- Películas de género 'Drama' ---\n")
-            for (p in dramas) {
-                println("${p.titol} - ${p.director} (${p.any})")
-            }
-    */
-            cliente.close()
-            println("\n Proceso finalizado correctamente.")
-
-        } catch (e: Exception) {
-            println("❌ Error durante la ejecución: ${e.message}")
-            e.printStackTrace()
-        }
-    }
 
 
 **🔹Programa utilizando Jackson**: MainJackson.kt
 
-    package kmongo.peliculas
+        package kmongo.peliculas
 
 
 
-    import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-    import com.fasterxml.jackson.module.kotlin.readValue
-    import org.litote.kmongo.KMongo
-    import org.litote.kmongo.eq
-    import org.litote.kmongo.getCollection
-    import java.io.File
-    import org.litote.kmongo.Id
-    import org.litote.kmongo.newId
+        import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+        import com.fasterxml.jackson.module.kotlin.readValue
+        import org.litote.kmongo.KMongo
+        import org.litote.kmongo.eq
+        import org.litote.kmongo.getCollection
+        import java.io.File
+        import org.litote.kmongo.Id
+        import org.litote.kmongo.newId
 
-    data class Pelicula2(
-        val _id: Id<Pelicula> = newId(),
-        val titol: String = "",
-        val titol_or: String? = null,
-        val director: String = "",
-        val genere: String = "",
-        val durada: Int = 0,
-        val any: Int = 0,
-        val actors: List<String>? = null,
-        val sinopsi: String = ""
-    )
+        data class Pelicula(
+            val _id: Id<Pelicula> = newId(),
+            val titol: String = "",
+            val titol_or: String? = null,
+            val director: String = "",
+            val genere: String = "",
+            val durada: Int = 0,
+            val any: Int = 0,
+            val actors: List<String>? = null,
+            val sinopsi: String = ""
+        )
 
-    fun main() {
-        val ruta = "src/main/kotlin/kmongo/peliculas/peliculas.json"
-        val archivo = File(ruta)
+        fun main() {
+            val ruta = "src/main/kotlin/kmongo/peliculas/peliculas.json"
+            val archivo = File(ruta)
 
-        if (!archivo.exists()) {
-            println("❌ No se ha encontrado el archivo $ruta")
-            return
-        }
-
-        println("📖 Leyendo archivo $ruta ...")
-
-        try {
-            // Crear el mapper de Jackson
-            val mapper = jacksonObjectMapper()
-
-            // Leer el archivo y convertirlo en lista de Pelicula
-            val peliculas: List<Pelicula2> = mapper.readValue(archivo)
-
-            println("✅ Se han leído ${peliculas.size} películas del archivo.")
-
-            // Conectarse a MongoDB con KMongo
-            val cliente = KMongo.createClient("mongodb://localhost:27017")
-            val baseDatos = cliente.getDatabase("peliculas_db")
-            val coleccion = baseDatos.getCollection<Pelicula2>()
-
-            // Limpiar colección (opcional)
-            coleccion.drop()
-
-            // Insertar todas las películas de golpe
-            coleccion.insertMany(peliculas)
-            println(" ${peliculas.size} películas insertadas correctamente.\n")
-
-            // Mostrar todas las películas
-            val lista = coleccion.find().toList()
-            println(" Contenido de la colección en MongoDB:\n")
-            var i = 1
-            for (p in lista) {
-                println("🎞️ $i. ${p.titol} (${p.any})")
-                println("   🎬 Director: ${p.director}")
-                println("   🧩 Género: ${p.genere}")
-                println("   ⏱️ Duración: ${p.durada} min")
-                if (p.actors != null) println("   👥 Actores: ${p.actors.joinToString(", ")}")
-                println("   📝 Sinopsis: ${p.sinopsi.take(100)}...")
-                println("---------------------------------------------------------")
-                i++
+            if (!archivo.exists()) {
+                println("❌ No se ha encontrado el archivo $ruta")
+                return
             }
 
-            // Consultar solo los dramas, ordenados por título
-            println("\n --- Películas de género 'Drama' ---\n")
-            val dramas = coleccion.find(Pelicula::genere eq "Drama").sortedBy { it.titol }
-            for (p in dramas) {
-                println("${p.titol} - ${p.director} (${p.any})")
+            println("Leyendo archivo $ruta ...")
+
+            try {
+                // Crear el mapper de Jackson
+                val mapper = jacksonObjectMapper()
+
+                // Leer el archivo y convertirlo en lista de Pelicula
+                val peliculas: List<Pelicula> = mapper.readValue(archivo)
+
+                println("✅ Se han leído ${peliculas.size} películas del archivo.")
+
+                // Conectarse a MongoDB con KMongo
+                val cliente = KMongo.createClient("mongodb://localhost:27017")
+                val baseDatos = cliente.getDatabase("peliculas_db")
+                val coleccion = baseDatos.getCollection<Pelicula>()
+
+                // Limpiar colección (opcional)
+                coleccion.drop()
+
+                // Insertar todas las películas de golpe
+                coleccion.insertMany(peliculas)
+                println(" ${peliculas.size} películas insertadas correctamente.\n")
+
+                // Mostrar todas las películas
+                val lista = coleccion.find().toList()
+                println("Contenido de la colección en MongoDB:\n")
+                var i = 1
+                for (p in lista) {
+                    println("🎞️ $i. ${p.titol} (${p.any})")
+                    println("   🎬 Director: ${p.director}")
+                    println("   🧩 Género: ${p.genere}")
+                    println("   ⏱️ Duración: ${p.durada} min")
+                    if (p.actors != null) println("   👥 Actores: ${p.actors.joinToString(", ")}")
+                    println("   📝 Sinopsis: ${p.sinopsi.take(100)}...")
+                    println("---------------------------------------------------------")
+                    i++
+                }
+
+                // Consultar solo los dramas, ordenados por título
+                println("\n--- Películas de género 'Drama' ---\n")
+                val dramas = coleccion.find(Pelicula::genere eq "Drama").sortedBy { it.titol }
+                for (p in dramas) {
+                    println("${p.titol} - ${p.director} (${p.any})")
+                }
+
+                cliente.close()
+                println("\n Proceso finalizado correctamente.")
+
+            } catch (e: Exception) {
+                println("❌ Error durante la ejecución: ${e.message}")
+                e.printStackTrace()
             }
-
-            cliente.close()
-            println("\n Proceso finalizado correctamente.")
-
-        } catch (e: Exception) {
-            println("❌ Error durante la ejecución: ${e.message}")
-            e.printStackTrace()
         }
-    }
 
 
 
