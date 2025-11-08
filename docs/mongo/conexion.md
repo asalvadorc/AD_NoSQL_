@@ -14,17 +14,16 @@ KMongo es una capa de abstracción sobre el driver oficial, diseñada específic
 Permite trabajar con data classes y consultas tipadas, simplificando el código y haciéndolo más idiomático.
 Es la opción más recomendada para proyectos educativos o empresariales donde se busca claridad, seguridad de tipos y menor código repetitivo.
 
-A continuación veremos un ejemplo práctico de cada una de las dos formas de conectar Kotlin con MongoDB. Ambos ejemplos se ejecutarán sobre MongoDB Community Server en local y se crearán con Gradle desde IntelliJ.
+A continuación veremos un ejemplo práctico de cada una de las dos formas de conectar Kotlin con MongoDB. Ambos ejemplos se ejecutarán sobre **MongoDB Community Server** en local y se crearán con **Gradle** desde IntelliJ.
 
-## 🔹Kotlin + Gradle + Driver oficial
-
-**1. Crea un nuevo proyecto**{.azul}
-
-Al nuevo proyecto lo llamaremos, por ejemplo, BDNoSQL.
+3️⃣ Creamos un nuevo proyecto llamado **BDNoSQL**.
 
 ![alt text](../img/mongo1.png)
 
-**2. Añadir las dependencias en Gradle**{.azul}
+## 🔹Kotlin + Gradle + Driver oficial
+
+
+**1. Añadir las dependencias en Gradle**{.azul}
 
 En el archivo **build.gradle.kts**, dentro del bloque dependencies, añadimos:
 
@@ -32,9 +31,9 @@ En el archivo **build.gradle.kts**, dentro del bloque dependencies, añadimos:
             implementation("org.mongodb:mongodb-driver-sync:5.2.0")
         }
 
-**3. Ejemplo sobre la colección Libros**{.azul}
+**2. Ejemplo sobre la colección Libros**{.azul}
     
-Crea un archivo **Main.kt** en un paquete nuevo llamado **mongo** con el siguiente código:
+Crea un archivo **main.kt** en un paquete nuevo llamado **mongo** con el siguiente código:
 
 
 ![alt text](../img/mongo2.png)
@@ -85,6 +84,7 @@ Crea un archivo **Main.kt** en un paquete nuevo llamado **mongo** con el siguien
 
 ## 🔹Kotlin + Gradle + KMongo
 
+
 **1. Añadir las dependencias en Gradle**{.azul}
 
 En el **archivo build.gradle.kts**, dentro del bloque dependencies, añadimos:
@@ -96,7 +96,7 @@ En el **archivo build.gradle.kts**, dentro del bloque dependencies, añadimos:
 **2. Ejemplo sobre la colección Libros**{.azul}
 
    
-Crea un archivo **Main.kt** en un paquete nuevo llamado **Kmongo** con el siguiente código:
+Crea un archivo **main.kt** en un paquete nuevo llamado **kmongo** con el siguiente código:
 
 ![alt text](../img/mongo4.png)
 
@@ -171,56 +171,6 @@ El control de errores se hace con bloques **try-catch**. Así puedes capturar la
     
 
 
- <!--  
-
-**Ejemplo de CRUD completo con KMongo**
-
-        import org.litote.kmongo.*
-
-        data class Alumno(val nombre: String, val nota: Double)
-
-        fun main() {
-            val client = KMongo.createClient()
-            val db = client.getDatabase("instituto")
-            val alumnos = db.getCollection<Alumno>()
-
-            // Insertar
-            alumnos.insertOne(Alumno("Ana", 8.5))
-            alumnos.insertOne(Alumno("Luis", 6.7))
-
-            // Listar
-            println("📋 Todos los alumnos:")
-            alumnos.find().forEach { println(it) }
-
-            // Actualizar
-            alumnos.updateOne(Alumno::nombre eq "Luis", setValue(Alumno::nota, 7.5))
-
-            // Eliminar
-            alumnos.deleteOne(Alumno::nombre eq "Ana")
-
-            client.close()
-        }
--->
-<!--
-## Conexión a MongoDB Atlas (nube)
-
-Solo cambia la URI de conexión.
-
-Copia la URL que te ofrece Atlas en la sección Connect → Drivers.
-
-    val uri = "mongodb+srv://usuario:password@cluster0.mongodb.net/?retryWrites=true&w=majority"
-    val client = MongoClients.create(uri)
-    val database = client.getDatabase("biblioteca")
-
-
-⚠️ Asegúrate de:
-
-- Añadir tu IP a la lista blanca de Atlas.
-- Usar un usuario con permisos de lectura/escritura.
-- Especificar correctamente el nombre de la base.
-
--->
-
 ## 🔹Construir una base de datos MongoDB
 
 
@@ -231,7 +181,7 @@ Existen principalmente dos maneras de crear y poblar una base de datos en MongoD
 Podemos crear los documentos directamente desde la consola de MongoDB o desde un programa,
 utilizando instrucciones **insertOne()** o **insertMany()** con los datos escritos a mano.
 
-Por ejemplo:
+Por ejemplo: Insertar un película en una colección llamada peliculas.
 
     db.peliculas.insertOne({
         "titol": "La noia terrible",
@@ -251,8 +201,8 @@ Esto permite crear colecciones completas de forma automática, sin escribir los 
 A partir de este archivo, un programa en Kotlin puede leer los datos y añadirlos automáticamente
 a una colección MongoDB mediante las funciones insertOne() o insertMany().
 
-En este ejemplo veremos cómo crear una base de datos MongoDB a partir de un archivo JSON llamado
-**[peliculas.json](peliculas.json)**, que ubicaremos en un paquete llamado pelicualas (**src/main/kotlin/peliculas/**).
+En este ejemplo veremos cómo crear una base de datos MongoDB, utilizando el controlador **KMongo**, a partir de un archivo JSON llamado
+**[peliculas.json](peliculas.json)**, que ubicaremos en un paquete nuevo llamado **peliculas**, dentro del paquete **kmongo** (**src/main/kotlin/kmongo/peliculas/**).
 
 Vamos a desarrollar dos programas equivalentes, pero utilizando dos librerías diferentes para el tratamiento de los datos JSON:
 **kotlinx.serialization** y **Jackson**.
@@ -261,12 +211,12 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
 
 - Lee el archivo JSON.
 - Convertir los datos leídos en una lista de objetos de la clase Pelicula.
-- Insertar los objetos en una colección de MongoDB llamada peliculas, utilizando la librería KMongo, que permite trabajar directamente con clases de datos Kotlin (data class).
+- Insertar los objetos en una colección de MongoDB llamada peliculas, utilizando la librería **KMongo**, que permite trabajar directamente con clases de datos Kotlin (data class).
 - Recupera y muestra los datos almacenados en la colección.  
 
 --
 
-**🔹Estructura dle archivo JSON**
+**🔹Estructura del archivo JSON**
 
         [
         {
@@ -295,20 +245,22 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
 
 **🔹Estructura del proyecto**
 
+
         PeliculasMongo/
         ├─ build.gradle.kts
         ├─ src/
         │   └─ main/
         │       └─ kotlin/
-        │           └─ peliculas/
-        │               ├─ MainSerialization.kt      → programa con kotlinx.serialization
-        │               └─ MainJackson.kt            → programa con Jackson
-                        └─ peliculas.json            → archivo con las películas
+        │           └─ kmongo/
+        │               └─ peliculas/
+        │                   ├─ MainSerialization.kt      → programa con kotlinx.serialization
+        │                   └─ MainJackson.kt            → programa con Jackson
+                            └─ peliculas.json            → archivo con las películas
 
 
 **🔹Programa utilizando kotlinx.serialization**: MainSerialization.kt
 
-    package peliculas
+    package kmongo.peliculas
 
 
     import kotlinx.serialization.Serializable
@@ -333,7 +285,7 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
 
 
     fun main() {
-        val ruta = "src/main/kotlin/peliculas/peliculas.json"
+        val ruta = "src/main/kotlin/kmongo/peliculas/peliculas.json"
         val archivo = File(ruta)
 
         if (!archivo.exists()) {
@@ -344,7 +296,7 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
         println("📖 Leyendo archivo $ruta ...")
 
         try {
-            // Leer y deserializar las películas con kotlinx.serialization
+            // 1Leer y deserializar las películas con kotlinx.serialization
             val json = Json { ignoreUnknownKeys = true }
             val peliculas: List<Pelicula> = json.decodeFromString(
                 ListSerializer(Pelicula.serializer()),
@@ -363,11 +315,11 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
 
             // Insertar todas las películas directamente (sin Document)
             coleccion.insertMany(peliculas)
-            println("💾 ${peliculas.size} películas insertadas correctamente.\n")
+            println("${peliculas.size} películas insertadas correctamente.\n")
 
             // Consultar y mostrar todas
             val lista = coleccion.find().toList()
-            println("📜Contenido de la colección en MongoDB:\n")
+            println("Contenido de la colección en MongoDB:\n")
 
             var i = 1
             for (p in lista) {
@@ -380,9 +332,17 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
                 println("---------------------------------------------------------")
                 i++
             }
-    
+    /*
+            // Ejemplo de consulta: solo dramas ordenados por título
+            val dramas = coleccion.find(Pelicula::genere eq "Drama").sortedBy { it.titol }
+
+            println("\n --- Películas de género 'Drama' ---\n")
+            for (p in dramas) {
+                println("${p.titol} - ${p.director} (${p.any})")
+            }
+    */
             cliente.close()
-            println("\n🔚 Proceso finalizado correctamente.")
+            println("\n Proceso finalizado correctamente.")
 
         } catch (e: Exception) {
             println("❌ Error durante la ejecución: ${e.message}")
@@ -390,9 +350,10 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
         }
     }
 
+
 **🔹Programa utilizando Jackson**: MainJackson.kt
 
-    package peliculas
+    package kmongo.peliculas
 
 
 
@@ -405,7 +366,7 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
     import org.litote.kmongo.Id
     import org.litote.kmongo.newId
 
-    data class Pelicula2(   //Ponemos otro nombre para que no entre en conclicto con Pelicula Serializable.
+    data class Pelicula2(
         val _id: Id<Pelicula> = newId(),
         val titol: String = "",
         val titol_or: String? = null,
@@ -418,7 +379,7 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
     )
 
     fun main() {
-        val ruta = "src/main/kotlin/peliculas/peliculas.json"
+        val ruta = "src/main/kotlin/kmongo/peliculas/peliculas.json"
         val archivo = File(ruta)
 
         if (!archivo.exists()) {
@@ -435,7 +396,7 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
             // Leer el archivo y convertirlo en lista de Pelicula
             val peliculas: List<Pelicula2> = mapper.readValue(archivo)
 
-            println("Se han leído ${peliculas.size} películas del archivo.")
+            println("✅ Se han leído ${peliculas.size} películas del archivo.")
 
             // Conectarse a MongoDB con KMongo
             val cliente = KMongo.createClient("mongodb://localhost:27017")
@@ -447,11 +408,11 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
 
             // Insertar todas las películas de golpe
             coleccion.insertMany(peliculas)
-            println("💾 ${peliculas.size} películas insertadas correctamente.\n")
+            println(" ${peliculas.size} películas insertadas correctamente.\n")
 
             // Mostrar todas las películas
             val lista = coleccion.find().toList()
-            println("📜 Contenido de la colección en MongoDB:\n")
+            println(" Contenido de la colección en MongoDB:\n")
             var i = 1
             for (p in lista) {
                 println("🎞️ $i. ${p.titol} (${p.any})")
@@ -464,7 +425,14 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
                 i++
             }
 
-           cliente.close()
+            // Consultar solo los dramas, ordenados por título
+            println("\n --- Películas de género 'Drama' ---\n")
+            val dramas = coleccion.find(Pelicula::genere eq "Drama").sortedBy { it.titol }
+            for (p in dramas) {
+                println("${p.titol} - ${p.director} (${p.any})")
+            }
+
+            cliente.close()
             println("\n Proceso finalizado correctamente.")
 
         } catch (e: Exception) {
@@ -474,6 +442,8 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
     }
 
 
+
 **🔹Salida esperada:**
+
 
 ![alt text](../img/mongoejemplo.png)
