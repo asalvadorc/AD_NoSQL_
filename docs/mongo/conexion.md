@@ -266,7 +266,7 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
         import kotlinx.serialization.Serializable
         import kotlinx.serialization.builtins.ListSerializer
         import kotlinx.serialization.json.Json
-        import org.litote.kmongo.KMongo
+        import org.litote.kmongo.*
         import org.litote.kmongo.getCollection
         import java.io.File
 
@@ -296,7 +296,7 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
             println("📖 Leyendo archivo $ruta ...")
 
             try {
-                // Leer y deserializar las películas con kotlinx.serialization
+                // 1️⃣ Leer y deserializar las películas con kotlinx.serialization
                 val json = Json { ignoreUnknownKeys = true }
                 val peliculas: List<PeliculaSerializada> = json.decodeFromString(
                     ListSerializer(PeliculaSerializada.serializer()),
@@ -315,11 +315,11 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
 
                 // Insertar todas las películas directamente (sin Document)
                 coleccion.insertMany(peliculas)
-                println("${peliculas.size} películas insertadas correctamente.\n")
+                println("💾 ${peliculas.size} películas insertadas correctamente.\n")
 
                 // Consultar y mostrar todas
                 val lista = coleccion.find().toList()
-                println("Contenido de la colección en MongoDB:\n")
+                println("📜 Contenido de la colección en MongoDB:\n")
 
                 var i = 1
                 for (p in lista) {
@@ -332,17 +332,19 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
                     println("---------------------------------------------------------")
                     i++
                 }
-        /*
-                // Ejemplo de consulta: solo dramas ordenados por título
-                val dramas = coleccion.find(Pelicula::genere eq "Drama").sortedBy { it.titol }
 
-                println("\n --- Películas de género 'Drama' ---\n")
+                // Ejemplo de consulta: solo dramas ordenados por título
+
+                val dramas = coleccion.find(PeliculaSerializada::genere eq "Drama").sortedBy { it.titol }
+
+                println("\n🎭 --- Películas de género 'Drama' ---\n")
+
                 for (p in dramas) {
                     println("${p.titol} - ${p.director} (${p.any})")
                 }
-        */
+
                 cliente.close()
-                println("\n Proceso finalizado correctamente.")
+                println("\n🔚 Proceso finalizado correctamente.")
 
             } catch (e: Exception) {
                 println("❌ Error durante la ejecución: ${e.message}")
@@ -442,9 +444,64 @@ Ambos programas trabajarán con el mismo archivo de datos **[peliculas.json](pel
             }
         }
 
-
-
 **🔹Salida esperada:**
 
 
 ![alt text](../img/mongoejemplo.png)
+
+<!--
+### Ejemplos con Agregación
+
+El siguiente ejemplo realiza una agregación con aggregate() para mostrar cuántas películas hay por género, usando una operación tipo group + sum + sort.
+
+Lo haremos en kmongo + kotlinx.serialization:
+
+
+Añade esta clase al principio del archivo, fuera de main():
+
+    import kotlinx.serialization.Serializable
+
+    @Serializable
+    data class GeneroConConteo(
+        val _id: String,              // nombre del género
+        val total: Int                // número de películas de ese género
+    )
+
+Agrega esta función en tu código:
+
+        import org.bson.Document
+
+        fun mostrarConteoPeliculasPorGenero() {
+            val cliente = KMongo.createClient("mongodb://localhost:27017")
+            val bd = cliente.getDatabase("peliculas_db")
+            val coleccion = bd.getCollection<PeliculaSerializada>()
+
+            val pipeline = listOf(
+                Document("\$group", Document()
+                    .append("_id", "\$genere")
+                    .append("total", Document("\$sum", 1))),
+                Document("\$sort", Document("total", -1))
+            )
+
+            val resultado = coleccion.aggregate(pipeline)
+                .map { doc -> 
+                    GeneroConConteo(
+                        _id = doc.getString("_id"),
+                        total = doc.getInteger("total")
+                    )
+                }
+                .toList()
+
+            println("\n📊 Películas por género:")
+            for (g in resultado) {
+                println("🎬 ${g._id}: ${g.total} películas")
+            }
+
+            cliente.close()
+        }
+
+
+Llamar a la función desde main()
+
+    mostrarConteoPeliculasPorGenero()
+-->

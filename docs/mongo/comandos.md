@@ -40,7 +40,7 @@ Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobr
 
 ---
 
-## 🔹 Operaciones básicas
+## 🔹 Operaciones CRUD
 
 ### 🔹Inserción
 
@@ -49,8 +49,13 @@ Su sintaxis es **muy similar a JavaScript**, ya que cada comando se ejecuta sobr
 | `insertOne()` | Inserta un solo documento.<br>**Ejemplo:** `db.alumnos.insertOne({nombre:"Ana", nota:8})` |
 | `insertMany()` | Inserta varios documentos a la vez.<br>**Ejemplo:** `db.alumnos.insertMany([{nombre:"Luis", nota:7}, {nombre:"Marta", nota:9}])` |
 
-
 > 📌 Si la colección no existe, MongoDB la **creará automáticamente** en el momento de la inserción.
+
+!!!Note "Inserción especificando el id"
+    Si en la inserción del documento no se especifica el campo **_id**, como es el caso de los ejemplos anteriores, Mongo lo genera automáticamente de tipo **ObjectId**.  
+    Pero nosotros podemos poner este campo _id con el valor que queramos. Eso sí, debemos asegurarnos de que ese valor no lo use ningún otro documento de la colección, o nos dará un error.
+
+
 
 ---
 

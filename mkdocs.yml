@@ -39,13 +39,15 @@ nav:
   - 🔹JSON: mongo/json.md
   - 🔹Instalación: mongo/instalacion.md
   - 🔹Comandos: mongo/comandos.md
-  - 🔹Conexión: mongo/conexion.md
-  - 📝Ejercicio obligatorio: mongo/Ejercicio.md
+  - 🔹Desde Kotlin: mongo/conexion.md
+  - 📝Ejercicio obligatorio 1: mongo/Ejercicio.md
+  - 🔹Colecciones: mongo/colecciones.md
+  - 📝Ejercicio obligatorio 2: mongo/Ejercicio2.md
 #- FIREBASE:
-#  - 🔹Introducción: firebase/Firebase.md
-#  - 🔹Crear una Aplicación: firebase/aplicacion.md
-#  - 🔹Realtime DataBase: firebase/Realtime.md
-#  - 🔹Cloud Firestore: firebase/Firestore.md
+ # - 🔹Introducción: firebase/Firebase.md
+ # - 🔹Crear una Aplicación: firebase/aplicacion.md
+ # - 🔹Realtime DataBase: firebase/Realtime.md
+ # - 🔹Cloud Firestore: firebase/Firestore.md
 
 
 
