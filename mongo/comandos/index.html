@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://asalvadorc.github.io/AD_BD_NoSQL_/mongo/comandos/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>🔹Comandos - AD - Accés a Dades - BD NoSQL</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+        <link href="../../img/favicon.ico" rel="stylesheet" />
+        <link href="../../css/copy-button.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\ud83d\udd39Comandos";
+        var mkdocs_page_input_path = "mongo/comandos.md";
+        var mkdocs_page_url = "/AD_BD_NoSQL_/mongo/comandos/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../assets/logocaminas.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">BD Documentales nativas</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../RA_CE/">🔹RA y CE</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Introduccion/">🔹Introducción</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MONGO</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Mongo/">🔹Introducción</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../json/">🔹JSON</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../instalacion/">🔹Instalación</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">🔹Comandos</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sobre-bases-de-datos">🔹 Sobre bases de datos</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sobre-colecciones">🔹 Sobre colecciones</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#operaciones-crud">🔹 Operaciones CRUD</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#insercion">🔹Inserción</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#busqueda">🔹Búsqueda</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#actualizacion">🔹 Actualización</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#eliminacion">🔹 Eliminación</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#consultas-avanzadas-y-ordenacion">🔹 Consultas avanzadas y ordenación</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#indices">🔹 Índices</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#informacion-util-del-entorno">🔹 Información útil del entorno</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#consultas-avanzadas-con-aggregate">🔹 Consultas avanzadas con aggregate()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#resumen">✅ Resumen</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../conexion/">🔹Desde Kotlin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Ejercicio/">📝Ejercicio obligatorio 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../colecciones/">🔹Colecciones</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Ejercicio2/">📝Ejercicio obligatorio 2</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AD - Accés a Dades - BD NoSQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">MONGO</li>
+      <li class="breadcrumb-item active">🔹Comandos</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="comandos-de-mongodb-y-su-utilizacion">🔹 Comandos de MongoDB y su utilización</h1>
+<hr />
+<p>Los comandos básicos de MongoDB ya se trabajaron en 1.º de DAM, cuando se introdujo el modelo NoSQL y las operaciones fundamentales sobre colecciones y documentos.</p>
+<p>En este tema no se pretende volver a explicarlos desde cero, sino ofrecer un resumen práctico y actualizado con los comandos más útiles para consultar, ordenar, filtrar y gestionar datos en MongoDB, que te servirá como recordatorio y punto de partida para los ejercicios de este módulo.</p>
+<p>MongoDB utiliza su propia <strong>shell interactiva</strong>, llamada <strong><code>mongosh</code></strong>, que permite ejecutar comandos para administrar bases de datos, colecciones y documentos.  </p>
+<p>Su sintaxis es <strong>muy similar a JavaScript</strong>, ya que cada comando se ejecuta sobre un <strong>objeto base</strong>:</p>
+<pre><code>db.coleccion.operacion()
+</code></pre>
+<ul>
+<li>db → representa la base de datos actual.</li>
+<li>coleccion → el nombre de la colección sobre la que actuamos.</li>
+<li>operacion() → el comando que deseamos ejecutar.</li>
+</ul>
+<h2 id="sobre-bases-de-datos">🔹 Sobre bases de datos</h2>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>show dbs</code></td>
+<td>Muestra todas las bases de datos existentes.</td>
+<td><code>show dbs</code></td>
+</tr>
+<tr>
+<td><code>use &lt;nombre&gt;</code></td>
+<td>Cambia a una base de datos (la crea si no existe).</td>
+<td><code>use biblioteca</code></td>
+</tr>
+<tr>
+<td><code>db.getName()</code></td>
+<td>Muestra el nombre de la base de datos actual.</td>
+<td><code>db.getName()</code></td>
+</tr>
+<tr>
+<td><code>db.dropDatabase()</code></td>
+<td>Elimina la base de datos actual.</td>
+<td><code>db.dropDatabase()</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sobre-colecciones">🔹 Sobre colecciones</h2>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>show collections</code></td>
+<td>Lista todas las colecciones de la base de datos.<br><strong>Ejemplo:</strong> <code>show collections</code></td>
+</tr>
+<tr>
+<td><code>db.createCollection("nombre")</code></td>
+<td>Crea una colección vacía.<br><strong>Ejemplo:</strong> <code>db.createCollection("alumnos")</code></td>
+</tr>
+<tr>
+<td><code>db.coleccion.drop()</code></td>
+<td>Elimina una colección completa.<br><strong>Ejemplo:</strong> <code>db.alumnos.drop()</code></td>
+</tr>
+<tr>
+<td><code>db.coleccion.renameCollection("nuevoNombre")</code></td>
+<td>Cambia el nombre de una colección.<br><strong>Ejemplo:</strong> <code>db.alumnos.renameCollection("estudiantes")</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="operaciones-crud">🔹 Operaciones CRUD</h2>
+<h3 id="insercion">🔹Inserción</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>insertOne()</code></td>
+<td>Inserta un solo documento.<br><strong>Ejemplo:</strong> <code>db.alumnos.insertOne({nombre:"Ana", nota:8})</code></td>
+</tr>
+<tr>
+<td><code>insertMany()</code></td>
+<td>Inserta varios documentos a la vez.<br><strong>Ejemplo:</strong> <code>db.alumnos.insertMany([{nombre:"Luis", nota:7}, {nombre:"Marta", nota:9}])</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>📌 Si la colección no existe, MongoDB la <strong>creará automáticamente</strong> en el momento de la inserción.</p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Inserción especificando el id</p>
+<p>Si en la inserción del documento no se especifica el campo <strong>_id</strong>, como es el caso de los ejemplos anteriores, Mongo lo genera automáticamente de tipo <strong>ObjectId</strong>.<br />
+Pero nosotros podemos poner este campo _id con el valor que queramos. Eso sí, debemos asegurarnos de que ese valor no lo use ningún otro documento de la colección, o nos dará un error.</p>
+</div>
+<hr />
+<h3 id="busqueda">🔹Búsqueda</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>find()</code></td>
+<td>Devuelve todos los documentos de la colección.<br><strong>Ejemplo:</strong> <code>db.alumnos.find()</code></td>
+</tr>
+<tr>
+<td><code>findOne()</code></td>
+<td>Devuelve el primer documento que cumple una condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.findOne({nombre:"Ana"})</code></td>
+</tr>
+<tr>
+<td><code>find(criterio, proyección)</code></td>
+<td>Permite filtrar y mostrar solo algunos campos.<br><strong>Ejemplo:</strong> <code>db.alumnos.find({nota:{$gte:8}}, {nombre:1, _id:0})</code></td>
+</tr>
+</tbody>
+</table>
+<p>📘 <strong>Operadores comunes</strong>:<br />
+<code>$eq</code> (igual), <code>$ne</code> (distinto), <code>$gt</code> (mayor que), <code>$lt</code> (menor que), <code>$gte</code> (mayor o igual), <code>$lte</code> (menor o igual), <code>$in</code>, <code>$and</code>, <code>$or</code>.</p>
+<hr />
+<h3 id="actualizacion">🔹 Actualización</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>updateOne(filtro, cambios)</code></td>
+<td>Actualiza el primer documento que cumpla la condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.updateOne({nombre:"Ana"}, {$set:{nota:9}})</code></td>
+</tr>
+<tr>
+<td><code>updateMany(filtro, cambios)</code></td>
+<td>Actualiza todos los documentos que cumplan la condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.updateMany({nota:{$lt:5}}, {$set:{aprobado:false}})</code></td>
+</tr>
+<tr>
+<td><code>replaceOne(filtro, nuevoDoc)</code></td>
+<td>Sustituye el documento completo.<br><strong>Ejemplo:</strong> <code>db.alumnos.replaceOne({nombre:"Ana"}, {nombre:"Ana", nota:10})</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ Usa <code>$set</code> para modificar solo algunos campos y <strong>no perder el resto</strong>.</p>
+</blockquote>
+<hr />
+<h3 id="eliminacion">🔹 Eliminación</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>deleteOne()</code></td>
+<td>Elimina el primer documento que cumpla la condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.deleteOne({nombre:"Luis"})</code></td>
+</tr>
+<tr>
+<td><code>deleteMany()</code></td>
+<td>Elimina todos los documentos que cumplan la condición.<br><strong>Ejemplo:</strong> <code>db.alumnos.deleteMany({nota:{$lt:5}})</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong class="azul">Ejemplo</strong></p>
+<pre><code>use biblioteca
+db.libros.insertMany([
+{titulo:"1984", autor:"Orwell", año:1949},
+{titulo:"Fahrenheit 451", autor:"Bradbury", año:1953}
+])
+
+db.libros.find()
+db.libros.updateOne({titulo:"1984"}, {$set:{año:1950}})
+db.libros.find({año:{$gte:1950}})
+db.libros.deleteOne({titulo:"Fahrenheit 451"})
+</code></pre>
+<hr />
+<h2 id="consultas-avanzadas-y-ordenacion">🔹 Consultas avanzadas y ordenación</h2>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sort()</code></td>
+<td>Ordena los resultados. <code>1</code> ascendente, <code>-1</code> descendente.<br><strong>Ejemplo:</strong> <code>db.alumnos.find().sort({nota:-1})</code></td>
+</tr>
+<tr>
+<td><code>limit()</code></td>
+<td>Limita el número de resultados.<br><strong>Ejemplo:</strong> <code>db.alumnos.find().limit(3)</code></td>
+</tr>
+<tr>
+<td><code>countDocuments()</code></td>
+<td>Devuelve el número de documentos que cumplen un filtro.<br><strong>Ejemplo:</strong> <code>db.alumnos.countDocuments({nota:{$gte:5}})</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="indices">🔹 Índices</h2>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>createIndex({campo:1})</code></td>
+<td>Crea un índice ascendente.<br><strong>Ejemplo:</strong> <code>db.alumnos.createIndex({nombre:1})</code></td>
+</tr>
+<tr>
+<td><code>getIndexes()</code></td>
+<td>Muestra los índices existentes.<br><strong>Ejemplo:</strong> <code>db.alumnos.getIndexes()</code></td>
+</tr>
+<tr>
+<td><code>dropIndex("nombre_1")</code></td>
+<td>Elimina un índice.<br><strong>Ejemplo:</strong> <code>db.alumnos.dropIndex("nombre_1")</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="informacion-util-del-entorno">🔹 Información útil del entorno</h2>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>db.stats()</code></td>
+<td>Muestra estadísticas sobre la base de datos.<br><strong>Ejemplo:</strong> <code>db.stats()</code></td>
+</tr>
+<tr>
+<td><code>db.coleccion.stats()</code></td>
+<td>Muestra estadísticas sobre una colección.<br><strong>Ejemplo:</strong> <code>db.alumnos.stats()</code></td>
+</tr>
+<tr>
+<td><code>db.version()</code></td>
+<td>Devuelve la versión de MongoDB.<br><strong>Ejemplo:</strong> <code>db.version()</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="consultas-avanzadas-con-aggregate">🔹 Consultas avanzadas con <code>aggregate()</code></h2>
+<p>El método <strong><code>aggregate()</code></strong> permite realizar <strong>consultas complejas</strong> y <strong>procesamientos de datos</strong> en varias etapas, similares a las funciones de <strong>GROUP BY, JOIN o HAVING</strong> en SQL.<br />
+Cada etapa del <em>pipeline</em> (tubería) transforma los datos paso a paso.</p>
+<hr />
+<p><strong>Estructura básica</strong></p>
+<pre><code>db.coleccion.aggregate([
+{ &lt;etapa1&gt; },
+{ &lt;etapa2&gt; },
+...
+])
+</code></pre>
+<p>Cada etapa (stage) se representa mediante un objeto precedido por $, que indica la operación a realizar.</p>
+<table>
+<thead>
+<tr>
+<th>Etapa</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$match</code></td>
+<td>Filtra documentos (equivalente a <code>WHERE</code>).<br><strong>Ejemplo:</strong> <code>{ $match: { ciudad: "Valencia" } }</code></td>
+</tr>
+<tr>
+<td><code>$project</code></td>
+<td>Selecciona campos específicos o crea nuevos.<br><strong>Ejemplo:</strong> <code>{ $project: { _id:0, nombre:1, nota:1 } }</code></td>
+</tr>
+<tr>
+<td><code>$sort</code></td>
+<td>Ordena los resultados.<br><strong>Ejemplo:</strong> <code>{ $sort: { nota: -1 } }</code></td>
+</tr>
+<tr>
+<td><code>$limit</code></td>
+<td>Limita el número de resultados.<br><strong>Ejemplo:</strong> <code>{ $limit: 5 }</code></td>
+</tr>
+<tr>
+<td><code>$skip</code></td>
+<td>Omite un número de documentos.<br><strong>Ejemplo:</strong> <code>{ $skip: 10 }</code></td>
+</tr>
+<tr>
+<td><code>$group</code></td>
+<td>Agrupa los documentos por un campo y calcula valores agregados (como <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>).<br><strong>Ejemplo:</strong> <code>{ $group: { _id: "$curso", media: { $avg: "$nota" } } }</code></td>
+</tr>
+<tr>
+<td><code>$count</code></td>
+<td>Devuelve el número total de documentos resultantes.<br><strong>Ejemplo:</strong> <code>{ $count: "total" }</code></td>
+</tr>
+<tr>
+<td><code>$lookup</code></td>
+<td>Realiza una unión entre colecciones (similar a <code>JOIN</code>).<br><strong>Ejemplo:</strong> <code>{ $lookup: { from: "profesores", localField: "idProfesor", foreignField: "_id", as: "infoProfesor" } }</code></td>
+</tr>
+<tr>
+<td><code>$unwind</code></td>
+<td>Descompone arrays en múltiples documentos.<br><strong>Ejemplo:</strong> <code>{ $unwind: "$aficiones" }</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong class="azul">Ejemplo</strong></p>
+<p>Supongamos que quieres agrupar los libros por autor y calcular el año promedio de publicación de sus obras:</p>
+<pre><code>db.libros.aggregate([
+{
+    $group: {
+    _id: "$autor",              // agrupamos por autor
+    promedioAño: { $avg: "$año" }, // promedio de años
+    cantidadLibros: { $sum: 1 }    // número de libros por autor
+    }
+}
+])
+</code></pre>
+<h2 id="resumen">✅ Resumen</h2>
+<table>
+<thead>
+<tr>
+<th>Categoría</th>
+<th>Comandos clave</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>📚 <strong>Base de datos</strong></td>
+<td><code>show dbs</code>, <code>use</code>, <code>db.getName()</code>, <code>db.dropDatabase()</code></td>
+</tr>
+<tr>
+<td>📂 <strong>Colecciones</strong></td>
+<td><code>show collections</code>, <code>db.createCollection()</code>, <code>db.coleccion.drop()</code></td>
+</tr>
+<tr>
+<td>➕ <strong>Inserción</strong></td>
+<td><code>db.coleccion.insertOne()</code>, <code>db.coleccion.insertMany()</code></td>
+</tr>
+<tr>
+<td>🔍 <strong>Consulta</strong></td>
+<td><code>db.coleccion.find()</code>, <code>db.coleccion.findOne()</code>, <code>.sort()</code>, <code>.limit()</code></td>
+</tr>
+<tr>
+<td>✏️ <strong>Actualización</strong></td>
+<td><code>db.coleccion.updateOne()</code>, <code>db.coleccion.updateMany()</code>, <code>$set</code></td>
+</tr>
+<tr>
+<td>❌ <strong>Eliminación</strong></td>
+<td><code>db.coleccion.deleteOne()</code>, <code>db.coleccion.deleteMany()</code></td>
+</tr>
+<tr>
+<td>🧩 <strong>Índices</strong></td>
+<td><code>db.coleccion.createIndex()</code>, <code>db.coleccion.getIndexes()</code>, <code>db.coleccion.dropIndex()</code></td>
+</tr>
+<tr>
+<td>📈 <strong>Estadísticas</strong></td>
+<td><code>db.stats()</code>, <code>db.coleccion.stats()</code>, <code>db.version()</code></td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../instalacion/" class="btn btn-neutral float-left" title="🔹Instalación"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../conexion/" class="btn btn-neutral float-right" title="🔹Desde Kotlin">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../instalacion/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../conexion/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/copy-button.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

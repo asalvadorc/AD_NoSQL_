@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://asalvadorc.github.io/AD_BD_NoSQL_/firebase/aplicacion/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Crear una aplicación - AD - Accés a Dades - BD NoSQL</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+        <link href="../../img/favicon.ico" rel="stylesheet" />
+        <link href="../../css/copy-button.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Crear una aplicaci\u00f3n";
+        var mkdocs_page_input_path = "firebase/aplicacion.md";
+        var mkdocs_page_url = "/AD_BD_NoSQL_/firebase/aplicacion/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../assets/logocaminas.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">BD Documentales nativas</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../RA_CE/">🔹RA y CE</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Introduccion/">🔹Introducción</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MONGO</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/Mongo/">🔹Introducción</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/json/">🔹JSON</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/instalacion/">🔹Instalación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/comandos/">🔹Comandos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/conexion/">🔹Desde Kotlin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/Ejercicio/">📝Ejercicio obligatorio 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/colecciones/">🔹Colecciones</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/Ejercicio2/">📝Ejercicio obligatorio 2</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AD - Accés a Dades - BD NoSQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Crear una aplicación</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="crear-una-aplicacion">Crear una aplicación</h1>
+<p>La base de datos —que, como hemos visto, puede ser un único documento JSON en el caso de Realtime Database, o un conjunto completo en el caso de Cloud Firestore— está asociada a una aplicación.</p>
+<p>Crearemos una nueva aplicación desde el entorno de Firebase, y será la referencia de esa aplicación la que utilizaremos en nuestra aplicación web o aplicación móvil.
+De este modo, podemos crear varias aplicaciones de Firebase, y en cada una de ellas almacenar una base de datos diferente.
+Para ello, será necesario autenticarnos con una cuenta de Google.</p>
+<p>El proceso de creación se realiza desde el entorno de Firebase: <a href="http://www.firebase.com">www.firebase.com</a>
+.</p>
+<p>El siguiente vídeo muestra el proceso de creación de una aplicación:</p>
+<iframe src="https://slides.com/aliciasalvador/deck/embed" width="576" height="420" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<hr />
+<p><strong class="azul">Reglas de seguridad</strong></p>
+<p>Inicialmente elegiremos la opción modo de prueba, en la cual todo el mundo puede acceder a los datos. Evidentemente, no se deben dejar estas reglas de forma definitiva, pero para empezar a realizar pruebas está bien.</p>
+<p>De hecho, en la última versión se mantiene el modo de prueba durante un mes.
+En cualquier caso, si quisiéramos ampliarlo, podríamos hacerlo desde la configuración de las rules (reglas).</p>
+<p><img alt="alt text" src="../image1.png" /></p>
+<h2 id="acceso-desde-intellij">🔹Acceso desde IntelliJ</h2>
+<p>Veremos el acceso desde IntelliJ, que es el entorno que utilizamos en el presente módulo.</p>
+<p>Para desarrollar una aplicación en <strong>IntelliJ</strong> con Kotlin que acceda a Firebase, una forma bastante sencilla es utilizar <strong>Maven</strong> para gestionar las dependencias necesarias.</p>
+<p>A continuación, se indican los pasos y las dependencias que deben añadirse al archivo <strong>pom.xml</strong>:</p>
+<p>a) <strong>Repositori Maven de Google</strong>:</p>
+<p>Algunas dependencias de Firebase pueden no estar disponibles en el repositorio Maven Central.
+Aseguraos de añadir también el repositorio de Google para que puedan resolverse correctamente.</p>
+<pre><code>&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;google&lt;/id&gt;
+        &lt;url&gt;https://maven.google.com/&lt;/url&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;
+</code></pre>
+<p>b) <strong>Añade Firebase Admin SDK</strong>.El Admin SDK es la biblioteca principal que permite interactuar con los servicios de Firebase, como Realtime Database, Cloud Firestore, Authentication, entre otros.</p>
+<pre><code>&lt;dependency&gt;
+        &lt;groupId&gt;com.google.firebase&lt;/groupId&gt;
+        &lt;artifactId&gt;firebase-admin&lt;/artifactId&gt;
+        &lt;version&gt;9.1.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>c) <strong>Servicios Adicionales</strong> </p>
+<p>Si necesitas interactuar con servicios específicos, como Firestore o Realtime Database, aquí tienes las dependencias correspondientes:</p>
+<p><strong class="azul">Cloud Firestore</strong></p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.google.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;google-cloud-firestore&lt;/artifactId&gt;
+    &lt;version&gt;3.15.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+ &lt;dependency&gt;
+    &lt;groupId&gt;com.google.auth&lt;/groupId&gt;
+    &lt;artifactId&gt;google-auth-library-oauth2-http&lt;/artifactId&gt;
+    &lt;version&gt;1.27.0&lt;/version&gt; 
+ &lt;/dependency&gt;
+</code></pre>
+<p><strong class="azul">Realtime Database</strong></p>
+<p>La funcionalidad de Realtime Database está incluida en el Admin SDK, por lo que no es necesario añadir dependencias adicionales.
+Simplemente utiliza las clases que proporciona <strong>firebase-admin</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Haz clic en <strong>Reload Maven Project</strong> para asegurarte de que todas las dependencias se descargan correctamente.</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/copy-button.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

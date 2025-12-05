@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://asalvadorc.github.io/AD_BD_NoSQL_/Introduccion/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>🔹Introducción - AD - Accés a Dades - BD NoSQL</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+        <link href="../img/favicon.ico" rel="stylesheet" />
+        <link href="../css/copy-button.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\ud83d\udd39Introducci\u00f3n";
+        var mkdocs_page_input_path = "Introduccion.md";
+        var mkdocs_page_url = "/AD_BD_NoSQL_/Introduccion/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../assets/logocaminas.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">BD Documentales nativas</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../RA_CE/">🔹RA y CE</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">🔹Introducción</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MONGO</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/Mongo/">🔹Introducción</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/json/">🔹JSON</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/instalacion/">🔹Instalación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/comandos/">🔹Comandos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/conexion/">🔹Desde Kotlin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/Ejercicio/">📝Ejercicio obligatorio 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/colecciones/">🔹Colecciones</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/Ejercicio2/">📝Ejercicio obligatorio 2</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">AD - Accés a Dades - BD NoSQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">BD Documentales nativas</li>
+      <li class="breadcrumb-item active">🔹Introducción</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="introduccion">🔹Introducción</h1>
+<p>Las bases de datos documentales nativas (como MongoDB, Redis o Firebase) almacenan información en forma de documentos, usualmente codificados en JSON, BSON o XML, en lugar de filas y columnas como en las bases de datos relacionales.</p>
+<p>Cada documento puede tener una estructura diferente, lo que permite mayor flexibilidad y agilidad en el desarrollo.</p>
+<p>Sin embargo, si el dominio de la aplicación tiene muchas relaciones fuertes entre entidades y se necesita garantizar una integridad referencial estricta, una base de datos relacional puede ser más adecuada.</p>
+<p><strong class="azul">Ventajas</strong></p>
+<table>
+<thead>
+<tr>
+<th>Ventaja</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flexibilidad del esquema</td>
+<td>No es necesario definir un esquema fijo antes de insertar datos. Ideal para estructuras dinámicas.</td>
+</tr>
+<tr>
+<td>Escalabilidad horizontal</td>
+<td>Se adaptan bien al escalado distribuyendo los datos en múltiples servidores (sharding).</td>
+</tr>
+<tr>
+<td>Rendimiento en lectura y escritura</td>
+<td>Muy eficiente en operaciones de lectura y escritura sobre documentos completos.</td>
+</tr>
+<tr>
+<td>Modelo cercano a objetos</td>
+<td>Almacenan los datos de manera similar a como se manejan en el código (objetos serializados como JSON).</td>
+</tr>
+<tr>
+<td>Facilidad de integración con APIs REST</td>
+<td>Los documentos JSON pueden ser enviados y recibidos fácilmente a través de APIs.</td>
+</tr>
+<tr>
+<td>Ideal para datos semiestructurados</td>
+<td>Útiles para trabajar con datos que no se ajustan a una estructura tabular, como respuestas de formularios, logs, etc.</td>
+</tr>
+</tbody>
+</table>
+<p><strong class="azul">Inconvenientes</strong></p>
+<table>
+<thead>
+<tr>
+<th>Inconveniente</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Falta de integridad referencial</td>
+<td>No hay claves foráneas como en las bases de datos relacionales, lo que puede causar inconsistencias si no se gestiona adecuadamente desde la aplicación.</td>
+</tr>
+<tr>
+<td>Redundancia de datos</td>
+<td>Se repite información entre documentos al no haber normalización; esto puede generar más uso de espacio.</td>
+</tr>
+<tr>
+<td>Curva de aprendizaje</td>
+<td>Requiere aprender nuevos conceptos como agregaciones, operadores específicos y estructuras de documentos.</td>
+</tr>
+<tr>
+<td>Menor soporte para transacciones complejas</td>
+<td>Aunque existen transacciones en algunas bases (como MongoDB), su uso es más limitado que en sistemas relacionales.</td>
+</tr>
+<tr>
+<td>Consultas menos optimizadas en relaciones complejas</td>
+<td>No es la mejor opción cuando los datos necesitan muchas relaciones y joins complejos.</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../RA_CE/" class="btn btn-neutral float-left" title="🔹RA y CE"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../mongo/Mongo/" class="btn btn-neutral float-right" title="🔹Introducción">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../RA_CE/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../mongo/Mongo/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/copy-button.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

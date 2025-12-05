@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://asalvadorc.github.io/AD_BD_NoSQL_/mongo/instalacion/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>🔹Instalación - AD - Accés a Dades - BD NoSQL</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+        <link href="../../img/favicon.ico" rel="stylesheet" />
+        <link href="../../css/copy-button.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\ud83d\udd39Instalaci\u00f3n";
+        var mkdocs_page_input_path = "mongo/instalacion.md";
+        var mkdocs_page_url = "/AD_BD_NoSQL_/mongo/instalacion/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../assets/logocaminas.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">BD Documentales nativas</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../RA_CE/">🔹RA y CE</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Introduccion/">🔹Introducción</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MONGO</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Mongo/">🔹Introducción</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../json/">🔹JSON</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">🔹Instalación</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#instalacion-en-linux">🐧 Instalación en Linux</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#instalacion-en-windows">🪟 Instalación en Windows</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../comandos/">🔹Comandos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../conexion/">🔹Desde Kotlin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Ejercicio/">📝Ejercicio obligatorio 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../colecciones/">🔹Colecciones</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Ejercicio2/">📝Ejercicio obligatorio 2</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AD - Accés a Dades - BD NoSQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">MONGO</li>
+      <li class="breadcrumb-item active">🔹Instalación</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="instalacion">Instalación</h1>
+<p>Hoy en día existen múltiples opciones para trabajar con MongoDB, tanto a nivel de instalación como de desarrollo y administración.
+Aquí tienes un resumen actualizado, organizado por categorías 👇</p>
+<p>⚙️ <strong>1. Opciones de instalación y despliegue</strong></p>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Descripción</th>
+<th>Ideal para</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🖥️ <strong>MongoDB Community Server</strong></td>
+<td>Versión gratuita que se instala localmente en Windows, Linux o macOS.</td>
+<td>Prácticas locales, entornos educativos.</td>
+</tr>
+<tr>
+<td>🐳 <strong>MongoDB en Docker</strong></td>
+<td>Se ejecuta como contenedor con <code>docker-compose</code> o comandos <code>docker run</code>.</td>
+<td>Entornos de desarrollo rápidos y reproducibles.</td>
+</tr>
+<tr>
+<td>☁️ <strong>MongoDB Atlas</strong></td>
+<td>Servicio en la nube oficial de MongoDB. Permite crear clústeres gratuitos o de pago, gestionados por Mongo.</td>
+<td>Proyectos web, microservicios, despliegues reales.</td>
+</tr>
+<tr>
+<td>🧩 <strong>MongoDB Local + Atlas Sync</strong></td>
+<td>Permite sincronizar datos locales con una base remota en Atlas.</td>
+<td>Aplicaciones con modo offline/online.</td>
+</tr>
+</tbody>
+</table>
+<p>💻 <strong>2. Herramientas de administración y visualización</strong></p>
+<table>
+<thead>
+<tr>
+<th>Herramienta</th>
+<th>Tipo</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🧭 <strong>MongoDB Compass</strong></td>
+<td>GUI oficial</td>
+<td>Interfaz gráfica para consultar, insertar y analizar datos.</td>
+</tr>
+<tr>
+<td>🐘 <strong>DBeaver</strong></td>
+<td>GUI universal</td>
+<td>Permite conectarse a Mongo y a otras bases de datos (SQL y NoSQL).</td>
+</tr>
+<tr>
+<td>🧑‍💻 <strong>Robo 3T</strong> <em>(antiguo Robomongo)</em></td>
+<td>GUI ligera</td>
+<td>Muy utilizada para tareas básicas de exploración.</td>
+</tr>
+<tr>
+<td>📜 <strong>mongosh</strong></td>
+<td>Consola oficial</td>
+<td>Shell de comandos moderno (sustituye a <code>mongo</code>).</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p>🎯 De entre todas las opciones posibles para instalar y administrar MongoDB, hemos elegido utilizar la versión <strong>Community</strong> junto con <strong>Mongo Shell (mongosh)</strong> por su simplicidad, ligereza y adecuación a los objetivos de esta unidad.</p>
+</div>
+<h2 id="instalacion-en-linux">🐧 Instalación en Linux</h2>
+<p>Para realizar la instalación más básica, podemos hacerlo sin permisos de administrador.
+Si los tenemos, todo será más cómodo, pero si no, también es posible, como veremos y destacaremos a continuación.</p>
+<p>⚙️ <strong class="azul">Instalación del servidor (Linux)</strong></p>
+<p>Desde la página oficial de MongoDB: <a href="https://www.mongodb.com/try/download/community">https://www.mongodb.com/try/download/community
+</a> vamos al menú <strong>Products → Community Edition → Community Server</strong> y descargamos la versión apropiada para nuestro sistema operativo.</p>
+<p>Observa que, en el caso de Linux, hay muchas versiones para distintas distribuciones.
+Es recomendable elegir el paquete <strong>.tgz</strong>, ya que simplemente descomprimiendo el archivo se completa la instalación básica.</p>
+<p>Por ejemplo, para Ubuntu 22.04 de 64 bits, en el momento de redactar estos apuntes, el archivo sería: <a href="https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.2.1.tgz">https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-8.2.1.tgz</a></p>
+<div class="admonition warning">
+<p>Recuerda comprobar siempre que la versión coincide con la de tu sistema operativo.</p>
+</div>
+<p>Sencillamente, descomprimiremos este archivo en el lugar que queramos, y con eso ya tendremos la instalación básica lista.</p>
+<p>📁 Una vez instalado, crearemos el directorio de datos, que por defecto ha de estar ubicado en la raiz de la instalación:</p>
+<pre><code>mkdir /data  
+mkdir /data/db
+</code></pre>
+<p>El único problema que podríamos tener, si no somos administradores, es no tener permiso para crear ese directorio.
+En ese caso, crearemos otro directorio alternativo y, en el momento de arrancar el servidor, le indicaremos esa ubicación.</p>
+<p>▶️ La forma de arrancar el servidor será:</p>
+<pre><code>&lt;directoro raíz de MongoDB&gt;./bin/mongod
+</code></pre>
+<p>Opcionalmente, podemos indicarle a MongoDB dónde se encuentra la base de datos (si no lo especificamos, asumirá por defecto que está en /data/db):</p>
+<pre><code>&lt;directorio raíz de MongoDB&gt;./bin/mongod --dbpath &lt;directorio_de_la_BD&gt;
+</code></pre>
+<p>Una vez arrancamos el servidor, y si todo es correcto, aparecerán una serie de mensajes informativos y el servidor quedará en espera de recibir peticiones del cliente:</p>
+<table>
+<thead>
+<tr>
+<th><img alt="alt text" src="../../img/mongo_linus.png" /></th>
+<th><img alt="alt text" src="../../img/mongo_linus2.png" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Una vez que el servidor está en marcha, no debemos cerrar esa terminal, ya que al hacerlo detendríamos el servidor.</p>
+</div>
+<p>⚙️ <strong class="azul">Instalación del cliente MongoShell (Linux)</strong></p>
+<p>Desde la página de MongoDB <a href="https://www.mongodb.com/try/download/shell">https://www.mongodb.com/try/download/shell
+</a> vamos al menú
+<strong>Products → Tools → MongoDB Shell</strong>, y descargamos la versión apropiada para nuestro sistema operativo.</p>
+<p>Observa que, en el caso de Linux, existen muchas versiones para diferentes distribuciones.
+Es recomendable elegir el paquete <strong>.tgz</strong>, ya que simplemente descomprimiendo el archivo se completa la instalación.</p>
+<p>En el caso de Ubuntu 22.04 de 64 bits, seleccionaremos la opción genérica “Linux 64”, ya que es la que ofrece el paquete .tgz.</p>
+<p>El archivo correspondiente es: <a href="https://downloads.mongodb.com/compass/mongosh-2.4.0-linux-x64.tgz">https://downloads.mongodb.com/compass/mongosh-2.4.0-linux-x64.tgz</a></p>
+<div class="admonition warning">
+<p>Recuerda asegurarte siempre de que la versión sea la correcta para tu sistema.</p>
+</div>
+<p>Sencillamente descomprimiremos este archivo en el lugar que queramos, y con eso ya tendremos hecha la instalación básica.</p>
+<p>▶️ La forma de arrancar el cliente será:</p>
+<pre><code>&lt;directori raíz de  Mongosh&gt;./bin/mongosh
+</code></pre>
+<p><img alt="alt text" src="../../img/mongosh.png" />    </p>
+<h2 id="instalacion-en-windows">🪟 Instalación en Windows</h2>
+<p>⚙️ <strong class="azul">Instalación del servidor (Windows)</strong></p>
+<p>Desde la página oficial de MongoDB: <a href="https://www.mongodb.com/try/download/community">https://www.mongodb.com/try/download/community</a> vamos al menú <strong>Products → Community Edition → Community Server</strong> y descargamos la versión apropiada para nuestro sistema operativo, que se distribuye como un archivo <strong>.msi</strong> ejecutable.</p>
+<p>🔽En el momento de redactar estos apuntes, la versión de 64 bits más reciente: <a href="https://fastdl.mongodb.org/windows/mongodb-ewindows-x86_64-8.2.1-signed.msi">https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-8.2.1-signed.msi</a></p>
+<p>Durante la instalación, se te preguntará si deseas instalarlo como un servicio. Si eliges esta opción, el programa se iniciará automáticamente con el sistema y no tendrás que ejecutarlo manualmente cada vez.</p>
+<p><img alt="alt text" src="../../img/image.png" /></p>
+<p>🎯Si instalaste MongoDB como servicio, se inicia automáticamente al arrancar Windows, puedes comprobarlo con:</p>
+<pre><code>net start | find "MongoDB"
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Si eliges <strong>no</strong> instalar MongoDB como servicio, deberás iniciarlo manualmente cada vez que quieras usarlo. En este caso, es necesario crear la carpeta donde se almacenarán los datos de la base de datos.</p>
+</div>
+<!--
+Si todo es correcto, debería aparecer una ventana o consola indicando que el servidor está en ejecución, como en la siguiente imagen:
+
+![alt text](../img/mongodW.png)
+
+-->
+
+<p>💻 <strong class="azul">Instalación del cliente Mongo Shell (Windows)</strong></p>
+<p>Para conectarnos como clientes, debemos hacerlo desde un  terminal, utilizando mongosh.exe, que es la interfaz de línea de comandos (CLI) oficial de MongoDB.</p>
+<p>Esta herramienta permite interactuar con la base de datos mediante comandos en JavaScript.</p>
+<p>🔽Descargamos la versión correspondiente de MongoDB Shell para Windows desde la página oficial: <a href="https://www.mongodb.com/try/download/shell">https://www.mongodb.com/try/download/shell</a></p>
+<p>🔽En el momento de redactar estos apuntes, la versión de 64 bits más reciente: <a href="https://downloads.mongodb.com/compass/mongosh-2.5.8-x64.msi">https://downloads.mongodb.com/compass/mongosh-2.5.8-x64.msi</a></p>
+<p>Una vez el servidor esté activo, simplemente escribe:</p>
+<pre><code>mongosh
+</code></pre>
+<p>Dentro del shell, prueba con:</p>
+<pre><code>show dbs
+</code></pre>
+<p>Si ves las bases de datos (admin, config, local), todo está funcionando correctamente:</p>
+<p><img alt="alt text" src="../../img/image2.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Mongo Compass</p>
+<p>También podéis descargar la versión <strong>MongoDB Compass</strong>, que es la herramienta gráfica oficial de MongoDB, la cual permite visualizar, explorar y administrar bases de datos MongoDB sin necesidad de utilizar la línea de comandos.</p>
+<p><a href="https://downloads.mongodb.com/compass/mongodb-compass-1.45.3-win32-x64.exe">https://downloads.mongodb.com/compass/mongodb-compass-1.45.3-win32-x64.exe</a></p>
+</div>
+<p><strong class="azul">Probar el funcionament</strong></p>
+<p>Para probar su funcionamiento, vamos a ejecutar un par de comandos: uno para guardar un documento y otro para recuperarlo.</p>
+<p>En cualquier operación, debemos escribir db seguido del nombre de la colección, y después la operación que queremos realizar.
+Con el siguiente comando:</p>
+<pre><code>db.ejemplo.insertOne({ msg: "Hola, ¿qué tal?" })
+</code></pre>
+<p>Nos responderá con:</p>
+<pre><code>    {
+    acknowledged: true,
+    insertedId: ObjectId('68ff6004ab24a06f35cebea4')
+    }
+</code></pre>
+<p>Indicando que se ha insertado un documento en la <strong>colección ejemplo</strong> (si no existía, la creará automáticamente).</p>
+<p>Y con el siguiente comando recuperamos la información:</p>
+<pre><code>db.ejemplo.find()
+</code></pre>
+<p>Lo que nos devolverá algo como:</p>
+<pre><code>{ "_id" : ObjectId("56cc1acd73b559230de8f71b"), "msg" : "Hola, ¿qué tal?" }
+</code></pre>
+<p><img alt="alt text" src="../../img/image3.png" /></p>
+<p>Todo esto se realiza en la misma terminal, y cada uno de nosotros obtendrá un número diferente en el campo <strong>ObjectId</strong>.
+En la siguiente imagen pueden verse las dos operaciones.</p>
+<p>En realidad, estamos conectados a una base de datos llamada test.
+Podemos crear y utilizar más de una base de datos, pero en este curso será más que suficiente trabajar con esta.</p>
+<p>Para comprobarlo, podemos ejecutar la siguiente instrucción, que nos devuelve <strong>el nombre de la base de datos actual</strong>:</p>
+<pre><code>db.getName()
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../json/" class="btn btn-neutral float-left" title="🔹JSON"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../comandos/" class="btn btn-neutral float-right" title="🔹Comandos">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../json/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../comandos/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/copy-button.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

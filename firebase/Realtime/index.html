@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://asalvadorc.github.io/AD_BD_NoSQL_/firebase/Realtime/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Realtime Database (RD) - AD - Accés a Dades - BD NoSQL</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+        <link href="../../img/favicon.ico" rel="stylesheet" />
+        <link href="../../css/copy-button.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Realtime Database (RD)";
+        var mkdocs_page_input_path = "firebase/Realtime.md";
+        var mkdocs_page_url = "/AD_BD_NoSQL_/firebase/Realtime/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../assets/logocaminas.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">BD Documentales nativas</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../RA_CE/">🔹RA y CE</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Introduccion/">🔹Introducción</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MONGO</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/Mongo/">🔹Introducción</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/json/">🔹JSON</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/instalacion/">🔹Instalación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/comandos/">🔹Comandos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/conexion/">🔹Desde Kotlin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/Ejercicio/">📝Ejercicio obligatorio 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/colecciones/">🔹Colecciones</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../mongo/Ejercicio2/">📝Ejercicio obligatorio 2</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AD - Accés a Dades - BD NoSQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Realtime Database (RD)</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="realtime-database-rd">Realtime Database (RD)</h1>
+<p>Aunque el objetivo es utilizarlo desde nuestro entorno de programación, siempre resulta útil manipular los datos directamente desde el propio entorno de Firebase.</p>
+<p>El siguiente vídeo corresponde a una versión anterior de Firebase, pero sigue siendo igualmente válido.</p>
+<iframe src="https://slides.com/aliciasalvador/t7_firebase_inserirdades/embed" width="576" height="420" title="Copy of T7_Firebase_InserirDades" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+<p>El entorno que nos ofrece Firebase será suficiente. Podremos visualizar los datos que hayamos introducido en todas nuestras aplicaciones, así como editarlos, es decir: añadir, modificar y eliminar.</p>
+<p>Recordemos que podemos utilizar dos versiones:</p>
+<ul>
+<li><strong>Realtime Database</strong></li>
+<li><strong>Cloud Firestore</strong></li>
+</ul>
+<h2 id="rd-utilizacion-desde-el-entorno-de-firebase">🔹RD: Utilización desde el entorno de Firebase</h2>
+<p>Haremos especial mención al hecho de que lo que guardamos es un documento JSON.
+Incluso podremos descargarlo (exportarlo) o subirlo (importarlo) como un documento.
+Eso sí, la operación de importación elimina los datos anteriores, lo que demuestra que solo podemos almacenar un único documento JSON.</p>
+<p>Este es el contenido del archivo Empleats.json que se muestra en el vídeo. Está formateado para facilitar su lectura, aunque en realidad no importaría que todo estuviera en una sola línea.</p>
+<p>Lo tenéis disponible en el aula virtual para que podáis importarlo.</p>
+<pre><code>{  
+    "empresa": {  
+        "empleat": [  
+        {  
+            "num": 1,  
+            "nom": "Andreu",  
+            "departament": 10,  
+            "edat": 32,  
+            "sou": 1000  
+        },  
+        {  
+            "num": 2,  
+            "nom": "Bernat",  
+            "departament": 20,  
+            "edat": 28,  
+            "sou": 1200  
+        },  
+        {  
+            "num": 3,  
+            "nom": "Clàudia",  
+            "departament": 10,  
+            "edat": 26,  
+            "sou": 1100  
+        },  
+        {  
+            "num": 4,  
+            "nom": "Damià",  
+            "departament": 10,  
+            "edat": 40,  
+            "sou": 1500  
+        }  
+    ]  
+    }  
+    }
+</code></pre>
+<p>Ya habéis visto que al importar Empleats.json se han perdido los demás datos.
+Volved a añadir el par clave-valor a1 (por ejemplo, con el valor Hola), ya que, al ser una estructura muy sencilla, la utilizaremos en algunos ejemplos.</p>
+<p>De este modo, nos quedará la siguiente estructura para los ejemplos posteriores:</p>
+<p><img alt="alt text" src="../image2.png" /></p>
+<h2 id="rd-utilizacion-desde-intellij">🔹RD: Utilización desde IntelliJ</h2>
+<p>Para los ejemplos y ejercicios de esta parte, crearemos un proyecto llamado Tema8, con los siguientes paquetes:
+exemples_realtimedatabase, exemples_cloudfirestore, exemples_cloudstorage y exercicis.</p>
+<h3 id="rd-intellij-connexion-des-de-kotlin">🔹 RD-IntelliJ: Connexión des de Kotlin</h3>
+<p><strong class="azul">Configuración</strong></p>
+<p>Lo primero que debemos hacer es preparar nuestro proyecto para que pueda acceder a la aplicación que hemos creado en Firebase.</p>
+<p>Desde el entorno de IntelliJ, descargaremos un archivo JSON que contiene la clave de acceso a nuestra aplicación.</p>
+<p>Para obtenerlo, debemos ir a la configuración del proyecto y, dentro de ella, acceder a la pestaña <strong>Cuentas de servicio</strong> (<strong>Service Accounts</strong>).
+Allí veremos varios ejemplos de uso (en nuestro caso nos interesa el de <strong>Java</strong>) y, al final de la página, encontraremos un botón para<strong>Generar una nueva clave privada</strong>.</p>
+<p><img alt="alt text" src="../image.png" /></p>
+<p>Se descargará un archivo <strong>JSON</strong> que <strong>deberemos guardar</strong> en la raíz del proyecto.
+Después, tal como indica el ejemplo, añadiremos el siguiente código para garantizar un acceso correcto:</p>
+<pre><code>val serviceAccount = FileInputStream("access-a-dades-d119e-firebase-adminsdk-ehn3k-14a46f56f4.json")
+
+
+    val options = FirebaseOptions.builder()
+        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+        .setDatabaseUrl("https://access-a-dades-d119e-default-rtdb.firebaseio.com/").build()
+
+
+    FirebaseApp.initializeApp(options)
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Avís</p>
+<p><strong>No os olvidéis de sustituir el nombre del archivo JSON</strong>.
+También debéis tener en cuenta que la URL de la base de datos será diferente para cada uno de vosotros.</p>
+</div>
+<p>El ejemplo está escrito en <strong>Java</strong>, por lo que tendremos que convertirlo a <strong>Kotlin</strong>.
+Quedará de la siguiente forma (yo lo he adaptado a mi proyecto, pero recordad cambiar el nombre del archivo JSON y la URL por los vuestros):     </p>
+<pre><code>    val serviceAccount = FileInputStream("access-a-dades-d119e-firebase-adminsdk-ehn3k-14a46f56f4.json")
+
+
+    val options = FirebaseOptions.builder()
+        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+        .setDatabaseUrl("https://access-a-dades-d119e-default-rtdb.firebaseio.com/").build()
+
+
+    FirebaseApp.initializeApp(options)
+</code></pre>
+<p><strong class="azul">Referencia a la Base de Datos y a los datos concretos a los que queremos acceder</strong></p>
+<p>Debemos crear un objeto <strong>FirebaseDatabase</strong>, que será una <strong>referencia a toda la Base de Datos</strong>:</p>
+<pre><code>val database = FirebaseDatabase.getInstance()
+</code></pre>
+<p>A partir de este objeto, podríamos hacer referencia a un <strong>par clave-valor</strong> que se encuentre en la <strong>raíz</strong>, como cuando habíamos creado <strong>a1</strong> (aunque recordad que ahora ya no existe):</p>
+<pre><code>val refA1 = database.getReference("a1")
+</code></pre>
+<p>También podríamos hacer referencia a un par clave-valor que no se encuentre en la raíz de la base de datos.
+Simplemente indicaríamos la ruta completa desde la raíz.</p>
+<p>Por ejemplo, para acceder al nombre del primer empleado de la empresa que tenemos guardado, lo haríamos así:</p>
+<pre><code>val empleat1 = database.getReference("empresa/empleat/0/nom")
+</code></pre>
+<p>En els casos anteriors hem optat per agafar parelles clau-valor, bé a l'arrel
+o més cap a dins de l'estructura JSON. Però en definitiva és una parella clau-
+valor.</p>
+<p>També podem optar per agafar l'estructura JSON i treballar amb ella, com vam
+fer en el Tema 3, quan vam treballar amb l'estructura JSON.</p>
+<pre><code>val empresa = database.getReference("empresa")
+</code></pre>
+<p>De esta manera, al obtener toda la estructura, tendremos <strong>dos formas de trabajar</strong> posteriormente para acceder a niveles más profundos dentro de la base de datos:</p>
+<ul>
+<li>
+<p><strong>Convertirla en objetos y arrays JSON</strong>, y trabajar como hicimos en el <em>Tema 3</em>.<br />
+  Es un método muy cómodo, especialmente cuando se trata de <strong>operaciones de lectura</strong>.</p>
+</li>
+<li>
+<p><strong>Trabajar directamente con los métodos de Firebase</strong>, que nos permiten acceder tanto a <strong>todos los nodos hijos</strong> de una estructura como a <strong>un nodo hijo concreto</strong>.</p>
+</li>
+</ul>
+<p>Mostraremos ambos enfoques en los ejemplos posteriores.</p>
+<h3 id="rd-intellij-acceso-a-los-datos">🔹RD-IntelliJ: Acceso a los datos</h3>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/copy-button.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://asalvadorc.github.io/AD_BD_NoSQL_/mongo/colecciones/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>🔹Colecciones - AD - Accés a Dades - BD NoSQL</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+        <link href="../../img/favicon.ico" rel="stylesheet" />
+        <link href="../../css/copy-button.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\ud83d\udd39Colecciones";
+        var mkdocs_page_input_path = "mongo/colecciones.md";
+        var mkdocs_page_url = "/AD_BD_NoSQL_/mongo/colecciones/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../assets/logocaminas.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">BD Documentales nativas</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../RA_CE/">🔹RA y CE</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Introduccion/">🔹Introducción</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MONGO</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Mongo/">🔹Introducción</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../json/">🔹JSON</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../instalacion/">🔹Instalación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../comandos/">🔹Comandos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../conexion/">🔹Desde Kotlin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Ejercicio/">📝Ejercicio obligatorio 1</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">🔹Colecciones</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#relaciones-en-mongodb">🔹 Relaciones en MongoDB</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#lookup-anidado">🔹 $lookup anidado</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#el-operador-unwind">🔹El operador $unwind</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#desde-kotlin">🔹Desde Kotlin</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#agregacion">🔹 Agregación</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#consultas-con-lookup-y-unwind">🔹 Consultas con $lookup y $unwind</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#programa-completo">🔹Programa completo</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Ejercicio2/">📝Ejercicio obligatorio 2</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AD - Accés a Dades - BD NoSQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">MONGO</li>
+      <li class="breadcrumb-item active">🔹Colecciones</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="colecciones">🔹Colecciones</h1>
+<p>En los ejemplos vistos hasta ahora hemos trabajado con una única colección formada por varios documentos.</p>
+<p>En bases de datos NoSQL, como MongoDB, es habitual trabajar con varias colecciones para organizar los datos de forma lógica. Aunque NoSQL no soporta joins como SQL, existen estrategias para relacionar colecciones:</p>
+<p>1️⃣ <strong>Referencias</strong>:</p>
+<p>En este enfoque, los documentos <strong>almacenan solo referencias (IDs) de documentos en otras colecciones</strong>.<br />
+Se usa cuando los datos son reutilizados en múltiples documentos o crecen mucho en tamaño.  </p>
+<p><strong><u>Ejemplo</u>:</strong> Cliente y Pedidos en colecciones separadas con referencia </p>
+<p><strong>Colección <code>clientes</code></strong></p>
+<pre><code>{
+  "_id": 1,
+  "nombre": "Juan",
+  "email": "juan@email.com",
+}
+</code></pre>
+<p><strong>Colección <code>pedidos</code></strong></p>
+<p>En cada pedido guardamos en el campo <strong>cliente_id</strong> el cliente.</p>
+<pre><code>[
+  { "_id": 101, "cliente_id": 1, "producto": "Laptop", "total": 1200 }, 
+  { "_id": 102, "cliente_id": 1, "producto": "Mouse", "total": 25 }
+]
+</code></pre>
+<p>2️⃣ <strong>Embebido</strong>:</p>
+<p>Este enfoque <strong>anida los datos relacionados dentro del mismo documento</strong>.<br />
+Se usa cuando los datos relacionados se consultan frecuentemente juntos y no crecen demasiado en tamaño.</p>
+<p><strong><u>Ejemplo</u>:</strong> Cliente con sus Pedidos embebidos</p>
+<pre><code>{
+  "_id": 1,
+  "nombre": "Juan",
+  "email": "juan@email.com",
+  "pedidos": [
+    { "producto": "Laptop", "total": 1200 },
+    { "producto": "Mouse", "total": 25 }
+  ]
+}
+</code></pre>
+<h2 id="relaciones-en-mongodb">🔹 Relaciones en MongoDB</h2>
+<p>Aunque <strong>MongoDB</strong> no es relacional, <strong>$lookup</strong> permite combinar datos como si fuera una base de datos relacional (tipo SQL), pero usando su sistema de agregación.</p>
+<p>El operador <strong>$lookup</strong> se utiliza en MongoDB para realizar un <strong>join</strong> entre dos colecciones, es decir, para relacionar documentos de diferentes colecciones usando un campo común.</p>
+<p>Es útil cuando seguimos un enfoque de <strong>referencias</strong>, donde almacenamos solo el <strong>ObjectId</strong> en lugar de los documentos embebidos.</p>
+<div class="admonition note">
+<p class="admonition-title">Sintaxis</p>
+</div>
+<pre><code>    {   
+        $lookup: {       
+        from: &lt;collection_to_join&gt;,     
+        localField: &lt;field_from_the_input_documents&gt;,       
+        foreignField: &lt;field_from_collection&gt;,
+        as: &lt;output_array_field&gt;     
+        }
+    }
+</code></pre>
+<p><strong><u>Ejemplo 1</u>:</strong> Relacionar la coleción Usuarios con sus Pedidos</p>
+<ul>
+<li>
+<p><strong>Colección <code>clientes</code></strong>  </p>
+<pre><code>[
+  { "_id": 1, "nombre": "Carlos", "email": "carlos@example.com" },
+  { "_id": 2, "nombre": "Ana", "email": "ana@example.com" }
+]
+</code></pre>
+</li>
+<li>
+<p><strong>Colección <code>pedidos</code></strong></p>
+<pre><code>[
+  { "_id": 101, "usuario_id": 1, "producto": "Laptop", "precio": 1200 },
+  { "_id": 102, "usuario_id": 1, "producto": "Mouse", "precio": 50 },
+  { "_id": 103, "usuario_id": 2, "producto": "Teclado", "precio": 80 }
+]
+</code></pre>
+</li>
+<li>
+<p><strong>Consulta</strong> con <strong><code>$lookup</code></strong> para unir clientes con sus pedidos</p>
+<pre><code>db.usuarios.aggregate([
+  {
+    "$lookup": {
+      "from": "pedidos",         // Colección a unir
+      "localField": "_id",       // Campo en la colección actual (usuarios)
+      "foreignField": "usuario_id", // Campo en la otra colección (pedidos)
+      "as": "pedidos"            // Nombre del campo de salida con los pedidos
+    }
+  }
+])
+</code></pre>
+</li>
+<li>
+<p><strong>Resultado</strong> esperado</p>
+<pre><code>[
+  {
+    "_id": 1,
+    "nombre": "Carlos",
+    "email": "carlos@example.com",
+    "pedidos": [
+      { "_id": 101, "usuario_id": 1, "producto": "Laptop", "precio": 1200 },
+      { "_id": 102, "usuario_id": 1, "producto": "Mouse", "precio": 50 }
+    ]
+  },
+  {
+    "_id": 2,
+    "nombre": "Ana",
+    "email": "ana@example.com",
+    "pedidos": [
+      { "_id": 103, "usuario_id": 2, "producto": "Teclado", "precio": 80 }
+    ]
+  }
+]
+</code></pre>
+</li>
+</ul>
+<p><strong><u>Ejemplo 2</u></strong>: Realcionar la colección autores con sus libros.</p>
+<pre><code>    // Colecciones
+  db.createCollection("authors");
+  db.createCollection("books");
+
+  // 1) Insertar autor con _id(string)
+  db.authors.insertOne({
+    _id: "diego",            
+    name: "Diego Cortés",
+    email: "dcortes@example.com",
+    age: 25
+  });
+
+  // 2) Insertar libros referenciando el _id del autor
+  db.books.insertMany([
+    {
+      _id: "book-philosopher-stone",
+      name: "Philosopher's Stone",
+      author_id: "diego"     // ← referencia
+    },
+    {
+      _id: "book-secret-programming",
+      name: "Secret of programming",
+      author_id: "diego"     // ← referencia
+    }
+  ]);
+
+  // 3) JOIN con $lookup (authors → books)
+  db.getCollection("authors").aggregate([
+    {
+      $lookup: {
+        from: "books",
+        localField: "_id",       // "diego"
+        foreignField: "author_id",
+        as: "books"
+      }
+    }
+  ]);
+</code></pre>
+<ul>
+<li><strong>Resultado</strong> esperado<pre><code>[
+  {
+    _id: 'diego',
+    name: 'Diego Cortés',
+    email: 'dcortes@example.com',
+    age: 25,
+    books: [
+      {
+        _id: 'book-philosopher-stone',
+        name: "Philosopher's Stone",
+        author_id: 'diego'
+      },
+      {
+        _id: 'book-secret-programming',
+        name: 'Secret of programming',
+        author_id: 'diego'
+      }
+    ]
+  }
+]
+</code></pre>
+</li>
+</ul>
+<h3 id="lookup-anidado">🔹 $lookup anidado</h3>
+<p>Siguiendo con el ejemplo de clientes y sus pedidos, si cada pedido tiene detalles en una tercera colección <strong>detalles_pedido</strong>, podemos anidar otro $lookup:</p>
+<p><strong><u>Ejemplo</u>:</strong> Relacionar clientes con pedidos y detalles_pedido</p>
+<ul>
+<li>
+<p><strong>Colección <code>clientes</code></strong></p>
+<pre><code>[
+  { "_id": 1, "nombre": "Carlos", "email": "carlos@example.com" },
+  { "_id": 2, "nombre": "Ana", "email": "ana@example.com" }
+]
+</code></pre>
+</li>
+<li>
+<p><strong>Colección <code>pedidos</code></strong></p>
+<pre><code>[
+  { "_id": 101, "usuario_id": 1, "producto": "Laptop", "precio": 1200 },
+  { "_id": 102, "usuario_id": 1, "producto": "Mouse", "precio": 50 },
+  { "_id": 103, "usuario_id": 2, "producto": "Teclado", "precio": 80 }
+]
+</code></pre>
+</li>
+<li>
+<p><strong>Colección <code>detalles_pedido</code></strong></p>
+<pre><code>[
+  { "_id": 201, "pedido_id": 101, "cantidad": 1, "garantia": "2 años" },
+  { "_id": 202, "pedido_id": 102, "cantidad": 2, "garantia": "1 año" },
+  { "_id": 203, "pedido_id": 103, "cantidad": 1, "garantia": "3 años" }
+]
+</code></pre>
+</li>
+<li>
+<p>Consulta con <strong><code>$lookup</code> anidado</strong> </p>
+</li>
+</ul>
+<p>La idea es obtener una lista de usuarios con sus pedidos, y dentro de cada pedido, los detalles de ese pedido.</p>
+<pre><code>      db.usuarios.aggregate([
+      {
+        "$lookup": {
+          "from": "pedidos",
+          "localField": "_id",
+          "foreignField": "usuario_id",
+          "as": "pedidos"
+        }
+      },
+      {
+        "$unwind": "$pedidos"  // Descompone el array de pedidos
+      },
+      {
+        "$lookup": {
+          "from": "detalles_pedido",
+          "localField": "pedidos._id",
+          "foreignField": "pedido_id",
+          "as": "pedidos.detalles"
+        }
+      },
+      {
+        "$group": {
+          "_id": "$_id",
+          "nombre": { "$first": "$nombre" },
+          "email": { "$first": "$email" },
+          "pedidos": { "$push": "$pedidos" }
+        }
+      }
+    ])
+</code></pre>
+<ul>
+<li><strong>Resultado</strong> esperado<pre><code>[
+  {
+    "_id": 1,
+    "nombre": "Carlos",
+    "email": "carlos@example.com",
+    "pedidos": [
+      {
+        "_id": 101,
+        "usuario_id": 1,
+        "producto": "Laptop",
+        "precio": 1200,
+        "detalles": [
+          { "_id": 201, "pedido_id": 101, "cantidad": 1, "garantia": "2 años" }
+        ]
+      },
+      {
+        "_id": 102,
+        "usuario_id": 1,
+        "producto": "Mouse",
+        "precio": 50,
+        "detalles": [
+          { "_id": 202, "pedido_id": 102, "cantidad": 2, "garantia": "1 año" }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": 2,
+    "nombre": "Ana",
+    "email": "ana@example.com",
+    "pedidos": [
+      {
+        "_id": 103,
+        "usuario_id": 2,
+        "producto": "Teclado",
+        "precio": 80,
+        "detalles": [
+          { "_id": 203, "pedido_id": 103, "cantidad": 1, "garantia": "3 años" }
+        ]
+      }
+    ]
+  }
+]
+</code></pre>
+</li>
+</ul>
+<hr />
+<p>🎯 <strong>Explicación del Pipeline</strong></p>
+<ul>
+<li>$lookup (usuarios → pedidos): Une los pedidos a cada cliente.</li>
+<li>$unwind (pedidos): Descompone la lista de pedidos para poder hacer otro $lookup.</li>
+<li>$lookup (pedidos → detalles_pedido): Une los detalles a cada pedido.</li>
+<li>$group: Vuelve a agrupar los datos para reconstruir la estructura.</li>
+</ul>
+<h3 id="el-operador-unwind">🔹El operador <code>$unwind</code></h3>
+<p>El operador <strong>$unwind</strong> en MongoDB descompone un array dentro de un documento en múltiples documentos, cada uno con un solo elemento del array.</p>
+<p>Es especialmente útil cuando trabajamos con <strong>$lookup</strong>, porque las consultas de agregación en MongoDB manejan arrays, y a veces es necesario convertirlos en documentos individuales para hacer más joins o transformaciones.</p>
+<p><strong>¿Cuándo se usa $unwind?</strong>  </p>
+<p>✔ Cuando necesitas descomponer arrays en documentos individuales.<br />
+  ✔ Para hacer joins en múltiples niveles (como unir detalles_pedido a cada pedido).<br />
+  ✔ Para hacer cálculos en elementos individuales de un array, como contar cuántos productos ha comprado un usuario.</p>
+<div class="admonition note">
+<p class="admonition-title">Ejemplo sin $unwind</p>
+<pre><code>  db.usuarios.aggregate([
+    {
+      "$lookup": {
+        "from": "pedidos",
+        "localField": "_id",
+        "foreignField": "usuario_id",
+        "as": "pedidos"
+      }
+    }
+  ])
+</code></pre>
+<p><strong>Resultado</strong></p>
+<pre><code>    [
+      {
+        "_id": 1,
+        "nombre": "Carlos",
+        "pedidos": [
+          { "_id": 101, "usuario_id": 1, "producto": "Laptop", "precio": 1200 },
+          { "_id": 102, "usuario_id": 1, "producto": "Mouse", "precio": 50 }
+        ]
+      },
+      {
+        "_id": 2,
+        "nombre": "Ana",
+        "pedidos": [
+          { "_id": 103, "usuario_id": 2, "producto": "Teclado", "precio": 80 }
+        ]
+      }
+    ]
+</code></pre>
+</div>
+<p>Cada usuario tiene un array con sus pedidos, pero si queremos hacer un segundo $lookup (por ejemplo, para unir detalles de los pedidos), MongoDB no puede unir arrays directamente.</p>
+<div class="admonition note">
+<p class="admonition-title">Ejemplo con $unwind</p>
+<pre><code>  db.usuarios.aggregate([
+    {
+      "$lookup": {
+        "from": "pedidos",
+        "localField": "_id",
+        "foreignField": "usuario_id",
+        "as": "pedidos"
+      }
+    },
+    {
+      "$unwind": "$pedidos"
+    }
+  ])
+</code></pre>
+<p><strong>Resultado</strong></p>
+<pre><code>    [
+      {
+        "_id": 1,
+        "nombre": "Carlos",
+        "pedidos": { "_id": 101, "usuario_id": 1, "producto": "Laptop", "precio": 1200 }
+      },
+      {
+        "_id": 1,
+        "nombre": "Carlos",
+        "pedidos": { "_id": 102, "usuario_id": 1, "producto": "Mouse", "precio": 50 }
+      },
+      {
+        "_id": 2,
+        "nombre": "Ana",
+        "pedidos": { "_id": 103, "usuario_id": 2, "producto": "Teclado", "precio": 80 }
+      }
+    ]
+</code></pre>
+</div>
+<p>Ahora, cada usuario tiene múltiples documentos, uno por cada pedido, lo que permite realizar otro $lookup con detalles_pedido.</p>
+<hr />
+<h2 id="desde-kotlin">🔹Desde Kotlin</h2>
+<p>En esta práctica trabajaremos desde IntelliJ con Kotlin, <strong>Jackson y KMongo</strong> para construir un ejemplo completo de varias colecciones en MongoDB sobre información musical. Utilizaremos Jackson (ObjectMapper) para deserializar los ficheros JSON a data classes de Kotlin, y KMongo para conectarnos, insertar, consultar y ejecutar agregaciones (incluyendo $lookup y $unwind). Jackson nos permitirá, además, mapear fácilmente resultados de agregación (documentos BSON) a clases Kotlin mediante convertValue, lo que simplifica mucho el trabajo con pipelines.</p>
+<p><strong>Modelo de datos:</strong></p>
+<ul>
+<li><strong>grupos</strong>: contiene información sobre grupos musicales.</li>
+<li><strong>estilo</strong>: define los distintos estilos musicales (Rock, Jazz, etc.).</li>
+<li><strong>album</strong>: recoge los discos publicados por los grupos.</li>
+<li><strong>canciones</strong>: contiene las canciones que forman parte de los álbumes.</li>
+</ul>
+<p>Cada colección está relacionada con otras a través de campos que actúan como <strong>referencias</strong>.</p>
+<p><strong>Relación: grupos → estilo</strong></p>
+<p>Cada grupo pertenece a un único estilo musical, representado por el campo estilo_id, que hace referencia al campo _id de la colección estilo.<br />
+Relación <strong>1:N</strong>: un estilo puede estar asociado a varios grupos, pero cada grupo tiene solo un estilo.</p>
+<pre><code>    // Colección: grupos
+    [
+    {
+        _id: "grupo1",
+        nombre: "The Beatles",
+        año_creacion: 1960,
+        estilo_id: "estilo1"
+    },
+    {
+        _id: "grupo2",
+        nombre: "Queen",
+        año_creacion: 1970,
+        estilo_id: "estilo2"
+    }
+    ]
+
+    // Colección: estilo
+    [
+    {
+        _id: "estilo1",
+        nombre: "Rock"
+    },
+    {
+        _id: "estilo2",
+        nombre: "Rock Clásico"
+    }
+    ]
+</code></pre>
+<p><strong>Relación: album → grupos</strong></p>
+<p>Cada álbum pertenece a un grupo concreto. Esto se representa mediante el campo grupo_id, que contiene el _id del grupo.<br />
+Relación <strong>1:N</strong>: un grupo puede tener muchos álbumes, pero cada álbum pertenece a un único grupo.</p>
+<pre><code>    // Colección: album
+    [
+    {
+        _id: "album1",
+        nombre: "Abbey Road",
+        grupo_id: "grupo1",
+        año_lanzamiento: 1969
+    },
+    {
+        _id: "album2",
+        nombre: "A Night at the Opera",
+        grupo_id: "grupo2",
+        año_lanzamiento: 1975
+    }
+    ]
+</code></pre>
+<p><strong>Relación: canciones → album</strong></p>
+<p>Cada canción pertenece a un álbum, identificado mediante el campo album_id.<br />
+Relación <strong>1:N</strong>: un álbum puede tener muchas canciones, pero cada canción pertenece a un solo álbum.</p>
+<pre><code>    // Colección: canciones
+    [
+    {
+        _id: "cancion1",
+        nombre: "Come Together",
+        album_id: "album1",
+        duracion: 259
+    },
+    {
+        _id: "cancion2",
+        nombre: "Bohemian Rhapsody",
+        album_id: "album2",
+        duracion: 355
+    }
+    ]
+</code></pre>
+<p><strong class="azul">Estrategia para construir la BD</strong></p>
+<p>La mejor estrategia para construir la base de datos a partir de archivos JSON es cargar los datos de cada colección desde cada archivo independiente y luego insertarlos en MongoDB usando KMongo o el driver oficial. Así mantienes la separación de datos y facilitas la actualización o migración futura.</p>
+<p>1️⃣ Crea un archivo para cada colección:</p>
+<ul>
+<li>
+<p>grupos.json</p>
+</li>
+<li>
+<p>estilo.json</p>
+</li>
+<li>
+<p>album.json</p>
+</li>
+<li>
+<p>canciones.json</p>
+</li>
+</ul>
+<p>Los guradaremos en un paquete nuevo llamado <strong>musica</strong> dentro del paquete <strong>kmongo</strong>, que ya teníamos creado:</p>
+<p><img alt="alt text" src="../image.png" /></p>
+<p>2️⃣ Creamos un programa main() que lea cada archivo JSON y lo conviérta a una lista de objetos kotlin utilizando la libreia Jackson e insertamos los objetos en MongoDB utilizando KMongo.</p>
+<pre><code>package kmongo.musica
+
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import org.litote.kmongo.*
+import java.io.File
+
+// 📦 Data classes
+data class Grupo(val _id: String, val nombre: String, val año_creacion: Int, val estilo_id: String)
+data class Estilo(val _id: String, val nombre: String)
+data class Album(val _id: String, val nombre: String, val grupo_id: String, val año_lanzamiento: Int)
+data class Cancion(val _id: String, val nombre: String, val album_id: String, val duracion: Int)
+
+
+
+
+val client = KMongo.createClient("mongodb://localhost:27017")
+val database = client.getDatabase("musicaDB")
+val mapper = jacksonObjectMapper()
+
+fun cargarGrupos() {
+    val archivo = File("src/main/kotlin/kmongo/musica/grupos.json")
+    val lista: List&lt;Grupo&gt; = mapper.readValue(archivo)
+
+    val coleccion = database.getCollection&lt;Grupo&gt;("grupos")
+    coleccion.drop()
+    coleccion.insertMany(lista)
+
+    println("✅ Grupos insertados:")
+    for (g in lista) println("🎸 ${g.nombre} (${g.año_creacion})")
+}
+
+fun cargarEstilos() {
+    val archivo = File("src/main/kotlin/kmongo/musica/estilo.json")
+    val lista: List&lt;Estilo&gt; = mapper.readValue(archivo)
+
+    val coleccion = database.getCollection&lt;Estilo&gt;("estilo")
+    coleccion.drop()
+    coleccion.insertMany(lista)
+
+    println("✅ Estilos insertados:")
+    for (e in lista) println("🎶 ${e.nombre}")
+}
+
+fun cargarAlbumes() {
+    val archivo = File("src/main/kotlin/kmongo/musica/album.json")
+    val lista: List&lt;Album&gt; = mapper.readValue(archivo)
+
+    val coleccion = database.getCollection&lt;Album&gt;("album")
+    coleccion.drop()
+    coleccion.insertMany(lista)
+
+    println("✅ Álbumes insertados:")
+    for (a in lista) println("💿 ${a.nombre} (${a.año_lanzamiento})")
+}
+
+fun cargarCanciones() {
+    val archivo = File("src/main/kotlin/kmongo/musica/canciones.json")
+    val lista: List&lt;Cancion&gt; = mapper.readValue(archivo)
+
+    val coleccion = database.getCollection&lt;Cancion&gt;("canciones")
+    coleccion.drop()
+    coleccion.insertMany(lista)
+
+    println("✅ Canciones insertadas:")
+    for (c in lista) println("🎵 ${c.nombre} - ${c.duracion} segundos")
+}
+
+fun main() {
+    cargarGrupos()
+    cargarEstilos()
+    cargarAlbumes()
+    cargarCanciones()
+
+    client.close()
+    println("🎉 Base de datos cargada correctamente y conexión cerrada.")
+}
+</code></pre>
+<p><strong class="azul">Comprobar  las colecciones desde el shell</strong></p>
+<pre><code>mongosh
+use musicaDB
+show collections
+db.grupos.find().pretty()
+db.album.find().pretty()
+db.canciones.find().pretty()
+db.estilo.find().pretty()
+</code></pre>
+<h3 id="agregacion">🔹 Agregación</h3>
+<p>Antes de unir colecciones con $lookup, empezaremos con un ejercicio de agregación sobre una única colección de nuestra base de datos musical. Usaremos la colección canciones, que contiene los campos _id, nombre, album_id y duracion. Desde IntelliJ + Kotlin, con Jackson y KMongo, construiremos un pipeline que calcule métricas por album_id sin realizar joins.</p>
+<p>El objetivo es afianzar la mecánica del framework de agregación (sin $lookup) para obtener, por cada álbum (referenciado por album_id):</p>
+<ul>
+<li>número de canciones ($sum)</li>
+<li>duración total en segundos ($sum)</li>
+<li>duración media ($avg)</li>
+<li>duración mínima y máxima ($min, $max)</li>
+</ul>
+<p>🔹Añade la clase que refleja exactamente lo que proyecta el pipeline: id de álbum, nombre y métricas.</p>
+<pre><code>data class StatsAlbum(
+    val album_id: String,
+    val album_nombre: String,
+    val total_canciones: Int,
+    val duracion_total: Int,      // segundos
+    val duracion_media: Double,   // ya redondeada a 1 decimal
+    val duracion_min: Int,
+    val duracion_max: Int
+)
+</code></pre>
+<p>🔹 Añade la función de agregación ($group + $lookup + $unwind + $project + $sort)</p>
+<pre><code>/** 📊 Agregación en UNA colección: estadísticas por álbum (solo 'canciones') */
+fun estadisticasCancionesPorAlbum() {
+    val colDocs = database
+        .getCollection&lt;Cancion&gt;("canciones")
+        .withDocumentClass(Document::class.java)
+
+    val pipeline = listOf(
+        // 1) Agrupar en 'canciones' por album_id y calcular métricas
+        Document("\$group", Document()
+            .append("_id", "\$album_id")
+            .append("total_canciones", Document("\$sum", 1))
+            .append("duracion_total", Document("\$sum", "\$duracion"))
+            .append("duracion_media_raw", Document("\$avg", "\$duracion"))
+            .append("duracion_min", Document("\$min", "\$duracion"))
+            .append("duracion_max", Document("\$max", "\$duracion"))
+        ),
+        // 2) Unir con 'album' para obtener el nombre del álbum
+        Document("\$lookup", Document()
+            .append("from", "album")
+            .append("localField", "_id")
+            .append("foreignField", "_id")
+            .append("as", "album")),
+        Document("\$unwind", "\$album"),
+        // 3) Proyección final (renombrar, redondear y seleccionar campos)
+        Document("\$project", Document()
+            .append("_id", 0)
+            .append("album_id", "\$_id")
+            .append("album_nombre", "\$album.nombre")
+            .append("total_canciones", 1)
+            .append("duracion_total", 1)
+            .append("duracion_min", 1)
+            .append("duracion_max", 1)
+            .append("duracion_media", Document("\$round", listOf("\$duracion_media_raw", 1)))
+        ),
+        // 4) Ordenar por más canciones y luego por más duración total
+        Document("\$sort", Document("total_canciones", -1).append("duracion_total", -1))
+    )
+
+    val resultado = colDocs.aggregate(pipeline)
+        .map { d -&gt; mapper.convertValue(d, StatsAlbum::class.java) }
+        .toList()
+
+    println("\n📊 Estadísticas por álbum:")
+    resultado.forEach { s -&gt;
+        println(
+            "💿 ${s.album_nombre} (${s.album_id}) — " +
+                    "🎵 ${s.total_canciones} | ⏱ total=${mmss(s.duracion_total)} " +
+                    "| avg=${"%.1f".format(s.duracion_media)}s " +
+                    "| min=${mmss(s.duracion_min)} | max=${mmss(s.duracion_max)}"
+        )
+    }
+}
+</code></pre>
+<p>🔹Incorporamos la función a main()</p>
+<pre><code>fun main() {
+  estadisticasCancionesPorAlbum()
+}
+</code></pre>
+<h3 id="consultas-con-lookup-y-unwind">🔹 Consultas con $lookup y $unwind</h3>
+<p>Con la base de datos musical ya cargada, vamos a ilustrar cómo consultar datos relacionados en MongoDB usando el pipeline de agregación. En concreto, veremos un ejemplo que:</p>
+<ul>
+<li>
+<p>Une colecciones con $lookup (p. ej., canciones → album → grupos) para simular un JOIN.</p>
+</li>
+<li>
+<p>Normaliza resultados con $unwind cuando el lookup devuelve arrays, transformándolos en documentos planos y fáciles de consumir.</p>
+</li>
+<li>
+<p>el nombre de la canción,</p>
+</li>
+<li>el álbum al que pertenece,</li>
+<li>y el grupo que interpreta ese álbum.</li>
+</ul>
+<p>Esto requiere dos niveles de unión:</p>
+<p>canciones → album → grupo</p>
+<p>🔹 Añade estas clases adicionales para representar el resultado de la consulta multinivel (anotamos las clases con @JsonIgnoreProperties(ignoreUnknown = true) para que Jackson ignore cualquier campo que no esté declarado):</p>
+<pre><code>import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class CancionConAlbumYGrupo(
+    val _id: String,
+    val nombre: String,
+    val duracion: Int,
+    val album: AlbumConGrupo?
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class AlbumConGrupo(
+    val _id: String,
+    val nombre: String,
+    val año_lanzamiento: Int,
+    val grupo: Grupo
+)
+</code></pre>
+<p>🔹 Añade la función <strong>mostrarCancionesConAlbumYGrupo()</strong></p>
+<p>Pega esta función al final del archivo (fuera de main, pero dentro del mismo archivo):</p>
+<pre><code>fun mostrarCancionesConAlbumYGrupo() {
+    val resultado = database.getCollection&lt;Cancion&gt;("canciones")
+        .aggregate&lt;CancionConAlbumYGrupo&gt;(
+            listOf(
+                lookup("album", "album_id", "_id", "album"),
+                unwind("\$album"),
+                lookup("grupos", "album.grupo_id", "_id", "album.grupo"),
+                unwind("\$album.grupo")
+            )
+        )
+        .toList()
+
+    println("\n🎶 Canciones con su álbum y grupo:")
+    for (c in resultado) {
+        println("🎵 ${c.nombre} (${c.duracion}s) - Álbum: ${c.album.nombre} - Grupo: ${c.album.grupo.nombre}")
+    }
+}
+</code></pre>
+<p>🔹 Incorporamos la función a main()</p>
+<pre><code>fun main() {
+      mostrarCancionesConAlbumYGrupo()
+}
+</code></pre>
+<h3 id="programa-completo">🔹Programa completo</h3>
+<pre><code>package kmongo.musica
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import org.bson.Document
+import org.litote.kmongo.*
+import java.io.File
+
+// 📦 Data classes
+data class Grupo(val _id: String, val nombre: String, val año_creacion: Int, val estilo_id: String)
+data class Estilo(val _id: String, val nombre: String)
+data class Album(val _id: String, val nombre: String, val grupo_id: String, val año_lanzamiento: Int)
+data class Cancion(val _id: String, val nombre: String, val album_id: String, val duracion: Int)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class CancionConAlbumYGrupo(
+    val _id: String,
+    val nombre: String,
+    val duracion: Int,
+    val album: AlbumConGrupo?
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class AlbumConGrupo(
+    val _id: String,
+    val nombre: String,
+    val año_lanzamiento: Int,
+    val grupo: Grupo
+)
+
+data class StatsAlbum(
+    val album_id: String,
+    val album_nombre: String,
+    val total_canciones: Int,
+    val duracion_total: Int,      // segundos
+    val duracion_media: Double,   // ya redondeada a 1 decimal
+    val duracion_min: Int,
+    val duracion_max: Int
+)
+
+// funicón para formatear segundos a mm:ss
+private fun mmss(seg: Int) = "%d:%02d".format(seg / 60, seg % 60)
+
+
+val client = KMongo.createClient("mongodb://localhost:27017")
+val database = client.getDatabase("musicaDB")
+val mapper = jacksonObjectMapper()
+
+fun cargarGrupos() {
+    val archivo = File("src/main/kotlin/kmongo/musica/grupos.json")
+    val lista: List&lt;Grupo&gt; = mapper.readValue(archivo)
+
+    val coleccion = database.getCollection&lt;Grupo&gt;("grupos")
+    coleccion.drop()
+    coleccion.insertMany(lista)
+
+    println("✅ Grupos insertados:")
+    for (g in lista) println("🎸 ${g.nombre} (${g.año_creacion})")
+}
+
+fun cargarEstilos() {
+    val archivo = File("src/main/kotlin/kmongo/musica/estilo.json")
+    val lista: List&lt;Estilo&gt; = mapper.readValue(archivo)
+
+    val coleccion = database.getCollection&lt;Estilo&gt;("estilo")
+    coleccion.drop()
+    coleccion.insertMany(lista)
+
+    println("✅ Estilos insertados:")
+    for (e in lista) println("🎶 ${e.nombre}")
+}
+
+fun cargarAlbumes() {
+    val archivo = File("src/main/kotlin/kmongo/musica/album.json")
+    val lista: List&lt;Album&gt; = mapper.readValue(archivo)
+
+    val coleccion = database.getCollection&lt;Album&gt;("album")
+    coleccion.drop()
+    coleccion.insertMany(lista)
+
+    println("✅ Álbumes insertados:")
+    for (a in lista) println("💿 ${a.nombre} (${a.año_lanzamiento})")
+}
+
+fun cargarCanciones() {
+    val archivo = File("src/main/kotlin/kmongo/musica/canciones.json")
+    val lista: List&lt;Cancion&gt; = mapper.readValue(archivo)
+
+    val coleccion = database.getCollection&lt;Cancion&gt;("canciones")
+    coleccion.drop()
+    coleccion.insertMany(lista)
+
+    println("✅ Canciones insertadas:")
+    for (c in lista) println("🎵 ${c.nombre} - ${c.duracion} segundos")
+}
+
+
+
+/** 📊 Agregación en UNA colección: estadísticas por álbum (solo 'canciones') */
+fun estadisticasCancionesPorAlbum() {
+    val colDocs = database
+        .getCollection&lt;Cancion&gt;("canciones")
+        .withDocumentClass(Document::class.java)
+
+    val pipeline = listOf(
+        // 1) Agrupar en 'canciones' por album_id y calcular métricas
+        Document("\$group", Document()
+            .append("_id", "\$album_id")
+            .append("total_canciones", Document("\$sum", 1))
+            .append("duracion_total", Document("\$sum", "\$duracion"))
+            .append("duracion_media_raw", Document("\$avg", "\$duracion"))
+            .append("duracion_min", Document("\$min", "\$duracion"))
+            .append("duracion_max", Document("\$max", "\$duracion"))
+        ),
+        // 2) Unir con 'album' para obtener el nombre del álbum
+        Document("\$lookup", Document()
+            .append("from", "album")
+            .append("localField", "_id")
+            .append("foreignField", "_id")
+            .append("as", "album")),
+        Document("\$unwind", "\$album"),
+        // 3) Proyección final (renombrar, redondear y seleccionar campos)
+        Document("\$project", Document()
+            .append("_id", 0)
+            .append("album_id", "\$_id")
+            .append("album_nombre", "\$album.nombre")
+            .append("total_canciones", 1)
+            .append("duracion_total", 1)
+            .append("duracion_min", 1)
+            .append("duracion_max", 1)
+            .append("duracion_media", Document("\$round", listOf("\$duracion_media_raw", 1)))
+        ),
+        // 4) Ordenar por más canciones y luego por más duración total
+        Document("\$sort", Document("total_canciones", -1).append("duracion_total", -1))
+    )
+
+    val resultado = colDocs.aggregate(pipeline)
+        .map { d -&gt; mapper.convertValue(d, StatsAlbum::class.java) }
+        .toList()
+
+    println("\n📊 Estadísticas por álbum:")
+    resultado.forEach { s -&gt;
+        println(
+            "💿 ${s.album_nombre} (${s.album_id}) — " +
+                    "🎵 ${s.total_canciones} | ⏱ total=${mmss(s.duracion_total)} " +
+                    "| avg=${"%.1f".format(s.duracion_media)}s " +
+                    "| min=${mmss(s.duracion_min)} | max=${mmss(s.duracion_max)}"
+        )
+    }
+}
+
+fun mostrarCancionesConAlbumYGrupo() {
+    val pipeline = listOf(
+        lookup("album", "album_id", "_id", "album"),
+        unwind("\$album"),
+        lookup("grupos", "album.grupo_id", "_id", "album.grupo"),
+        unwind("\$album.grupo")
+    )
+
+    // vista como Document para que aggregate devuelva Document
+    val colDocs = database
+        .getCollection&lt;Cancion&gt;("canciones")
+        .withDocumentClass(Document::class.java)
+
+    val resultado = colDocs
+        .aggregate(pipeline)
+        .map { doc -&gt; mapper.convertValue(doc, CancionConAlbumYGrupo::class.java) }
+        .toList()
+
+    println("\n🎶 Canciones con su álbum y grupo:")
+    for (c in resultado) {
+        val nombreAlbum = c.album?.nombre ?: "Sin álbum"
+        val nombreGrupo = c.album?.grupo?.nombre ?: "Sin grupo"
+        println("🎵 ${c.nombre} (${c.duracion}s) - Álbum: $nombreAlbum - Grupo: $nombreGrupo")
+    }
+}
+
+
+fun main() {
+    cargarGrupos()
+    cargarEstilos()
+    cargarAlbumes()
+    cargarCanciones()
+
+    // Agregación en una sola colección
+    estadisticasCancionesPorAlbum()
+    // Consultas con $lookup y $unwind   
+    mostrarCancionesConAlbumYGrupo()
+
+    client.close()
+    println("🎉 Base de datos cargada correctamente y conexión cerrada.")
+}
+</code></pre>
+<p>Resultado final:</p>
+<p><img alt="alt text" src="../image-1.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Ejercicio/" class="btn btn-neutral float-left" title="📝Ejercicio obligatorio 1"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../Ejercicio2/" class="btn btn-neutral float-right" title="📝Ejercicio obligatorio 2">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Ejercicio/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Ejercicio2/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/copy-button.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

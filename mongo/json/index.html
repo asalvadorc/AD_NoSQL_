@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://asalvadorc.github.io/AD_BD_NoSQL_/mongo/json/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>🔹JSON - AD - Accés a Dades - BD NoSQL</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+        <link href="../../img/favicon.ico" rel="stylesheet" />
+        <link href="../../css/copy-button.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\ud83d\udd39JSON";
+        var mkdocs_page_input_path = "mongo/json.md";
+        var mkdocs_page_url = "/AD_BD_NoSQL_/mongo/json/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../assets/logocaminas.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">BD Documentales nativas</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../RA_CE/">🔹RA y CE</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Introduccion/">🔹Introducción</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MONGO</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Mongo/">🔹Introducción</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">🔹JSON</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../instalacion/">🔹Instalación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../comandos/">🔹Comandos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../conexion/">🔹Desde Kotlin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Ejercicio/">📝Ejercicio obligatorio 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../colecciones/">🔹Colecciones</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Ejercicio2/">📝Ejercicio obligatorio 2</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AD - Accés a Dades - BD NoSQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">MONGO</li>
+      <li class="breadcrumb-item active">🔹JSON</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="json">JSON</h1>
+<p><strong>JSON</strong> (JavaScript Object Notation) es un formato de texto ligero utilizado para almacenar e intercambiar información estructurada entre aplicaciones.
+Aunque su sintaxis proviene de JavaScript, hoy en día es independiente del lenguaje y se usa ampliamente en entornos como Kotlin, Java, Python, Node.js, bases de datos NoSQL, APIs REST, etc.</p>
+<p>Un fichero JSON está compuesto por <strong>pares clave–valor</strong>, donde:</p>
+<ul>
+<li>Las <strong>claves</strong> siempre van entre comillas dobles " ".</li>
+<li>
+<p>Los <strong>valores</strong> pueden ser:</p>
+<ul>
+<li>Cadenas de texto ("texto")</li>
+<li>Números (42)</li>
+<li>Booleanos (true o false)</li>
+<li>Objetos (otro conjunto de pares clave-valor { ... })</li>
+<li>Arrays o listas ([ ... ])</li>
+<li>Valor nulo (null)</li>
+</ul>
+</li>
+</ul>
+<p><strong class="azul">Ejemplos de estructuras JSON</strong></p>
+<p>🔹 <strong>Objeto simple</strong>: Representa un único elemento con propiedades básicas.</p>
+<pre><code>{
+"nombre": "Ana",
+"edad": 25,
+"ciudad": "Valencia"
+}
+</code></pre>
+<p>🔹 <strong>Objeto con array</strong>(lista de valores): Incluye un campo que contiene una lista.</p>
+<pre><code>{
+"nombre": "Pedro",
+"aficiones": ["cine", "fútbol", "viajar"]
+}
+</code></pre>
+<p>🔹 <strong>Objeto con otro objeto anidado</strong>: Un campo puede contener a su vez otro objeto JSON.</p>
+<pre><code>{
+"nombre": "Lucía",
+"edad": 30,
+"direccion": {
+    "calle": "Gran Vía",
+    "ciudad": "Madrid",
+    "codigo_postal": 28013
+}
+}
+</code></pre>
+<p>🔹 <strong>Array de objetos</strong>: Cuando necesitamos almacenar varios elementos similares (por ejemplo, una lista de productos o alumnos).</p>
+<pre><code>{
+"alumnos": [
+    { "nombre": "Carlos", "nota": 8.5 },
+    { "nombre": "María", "nota": 9.2 },
+    { "nombre": "Laura", "nota": 7.8 }
+]
+}
+</code></pre>
+<p>🔹 <strong>Combinación compleja (objetos + arrays + anidamientos)</strong>: Para representar datos estructurados, como los de una tienda online.</p>
+<pre><code>{
+"pedido": {
+    "id": 101,
+    "fecha": "2025-10-11",
+    "cliente": {
+    "nombre": "Javier López",
+    "email": "jlopez@example.com"
+    },
+    "productos": [
+    { "nombre": "Ratón inalámbrico", "precio": 19.99, "cantidad": 1 },
+    { "nombre": "Teclado mecánico", "precio": 49.95, "cantidad": 1 }
+    ],
+    "total": 69.94
+}
+}
+</code></pre>
+<p>🔹 <strong>Array de objetos principales</strong>: También se puede usar un array como estructura raíz, por ejemplo, para representar varios registros en un mismo fichero:</p>
+<pre><code>[
+    { "nombre": "Ana", "edad": 25 },
+    { "nombre": "Pedro", "edad": 31 },
+    { "nombre": "Lucía", "edad": 28 }
+]
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Mongo/" class="btn btn-neutral float-left" title="🔹Introducción"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../instalacion/" class="btn btn-neutral float-right" title="🔹Instalación">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Mongo/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../instalacion/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/copy-button.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

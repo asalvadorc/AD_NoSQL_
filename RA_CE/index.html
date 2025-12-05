@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://asalvadorc.github.io/AD_BD_NoSQL_/RA_CE/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>🔹RA y CE - AD - Accés a Dades - BD NoSQL</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/extra.css" rel="stylesheet" />
+        <link href="../img/favicon.ico" rel="stylesheet" />
+        <link href="../css/copy-button.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\ud83d\udd39RA y CE";
+        var mkdocs_page_input_path = "RA_CE.md";
+        var mkdocs_page_url = "/AD_BD_NoSQL_/RA_CE/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="..">
+          <img src="../assets/logocaminas.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">BD Documentales nativas</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">🔹RA y CE</a>
+    <ul class="current">
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Introduccion/">🔹Introducción</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MONGO</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/Mongo/">🔹Introducción</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/json/">🔹JSON</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/instalacion/">🔹Instalación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/comandos/">🔹Comandos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/conexion/">🔹Desde Kotlin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/Ejercicio/">📝Ejercicio obligatorio 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/colecciones/">🔹Colecciones</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mongo/Ejercicio2/">📝Ejercicio obligatorio 2</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">AD - Accés a Dades - BD NoSQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">BD Documentales nativas</li>
+      <li class="breadcrumb-item active">🔹RA y CE</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ra5-desarrolla-aplicaciones-que-gestionan-la-informacion-almacenada-en-bases-de-datos-documentales-nativas-evaluando-y-utilizando-clases-especificas">🔹 RA5. Desarrolla aplicaciones que gestionan la información almacenada en bases de datos documentales nativas evaluando y utilizando clases específicas</h1>
+<table>
+<thead>
+<tr>
+<th>Criterio de Evaluación</th>
+<th>Contenidos Asociados</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a) Se han valorado las ventajas e inconvenientes de utilizar bases de datos documentales nativas.</td>
+<td>- Definición de base de datos documental (orientada a documentos).<br> - Comparativa frente a bases de datos relacionales: rendimiento, escalabilidad, flexibilidad del esquema.<br> - Ventajas: almacenamiento de datos semiestructurados (JSON, BSON), escalabilidad horizontal, alta disponibilidad.<br> - Inconvenientes: falta de integridad referencial, consistencia eventual, menor madurez en algunos entornos.</td>
+</tr>
+<tr>
+<td>b) Se ha establecido la conexión con la base de datos.</td>
+<td>- Conectores y drivers para bases de datos como MongoDB (MongoDB Java Driver, KMongo).<br> - Configuración de la URI de conexión.<br> - Gestión de clientes y sesiones.<br> - Buenas prácticas de conexión y cierre de recursos.</td>
+</tr>
+<tr>
+<td>c) Se han desarrollado aplicaciones que efectúan consultas sobre el contenido de la base de datos.</td>
+<td>- Uso de consultas simples y complejas en MongoDB (filtros, proyecciones, operadores lógicos, agregaciones).<br> - Librerías de acceso desde Kotlin (KMongo, MongoDB Java Driver).<br> - Ejecución de búsquedas por campo, rango y patrón.</td>
+</tr>
+<tr>
+<td>d) Se han añadido y eliminado colecciones de la base de datos.</td>
+<td>- Creación dinámica de colecciones.<br> - Eliminación de colecciones y sus implicaciones.<br> - Comprobación de existencia previa.<br> - Operaciones de administración desde el código.</td>
+</tr>
+<tr>
+<td>e) Se han desarrollado aplicaciones para añadir, modificar y eliminar documentos de la base de datos.</td>
+<td>- Inserción de documentos JSON/BSON.<br> - Actualización completa y parcial (updateOne, updateMany).<br> - Eliminación de documentos (deleteOne, deleteMany).<br> - Uso de data classes de Kotlin para representar documentos.<br> - Serialización y deserialización de objetos.</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../Introduccion/" class="btn btn-neutral float-right" title="🔹Introducción">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+      <span><a href="../Introduccion/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/copy-button.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
