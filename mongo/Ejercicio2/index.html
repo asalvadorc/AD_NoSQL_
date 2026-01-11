@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://asalvadorc.github.io/AD_BD_NoSQL_/mongo/Ejercicio2/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>📝Ejercicio obligatorio 2 - AD - Accés a Dades - BD NoSQL</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+        <link href="../../img/favicon.ico" rel="stylesheet" />
+        <link href="../../css/copy-button.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\ud83d\udcddEjercicio obligatorio 2";
+        var mkdocs_page_input_path = "mongo/Ejercicio2.md";
+        var mkdocs_page_url = "/AD_BD_NoSQL_/mongo/Ejercicio2/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../..">
+          <img src="../../assets/logocaminas.png" class="logo" alt="Logo"/>
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">BD Documentales nativas</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../RA_CE/">🔹RA y CE</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Introduccion/">🔹Introducción</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">MONGO</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../Mongo/">🔹Introducción</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../json/">🔹JSON</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../instalacion/">🔹Instalación</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../comandos/">🔹Comandos</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../conexion/">🔹Desde Kotlin</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../Ejercicio/">📝Ejercicio obligatorio 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../colecciones/">🔹Colecciones</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">📝Ejercicio obligatorio 2</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#requisitos">🛠️ Requisitos</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-base-de-datos">1. Base de Datos</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-modelo-con-varias-colecciones-tema-libre">2. Modelo con varias colecciones (tema libre)</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#requisitos-del-modelo">Requisitos del modelo:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-operaciones-en-kotlin">3. Operaciones en Kotlin</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-busquedas-avanzadas-con-aggregate">4. Búsquedas avanzadas con aggregate()</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#a-join-multinivel-con-referencias">🔹 A) Join multinivel con referencias</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#b-agregacion-en-una-sola-coleccion">🔹 B) Agregación en una sola colección</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#entrega">📩 Entrega</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#rubrica-de-evaluacion">✅ Rúbrica de evaluación</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AD - Accés a Dades - BD NoSQL</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">MONGO</li>
+      <li class="breadcrumb-item active">📝Ejercicio obligatorio 2</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="ejercicio-mi-base-de-datos-mongodb-con-referencias-y-agregaciones-tema-libre">📝 Ejercicio: Mi base de datos MongoDB con <strong>referencias</strong> y <strong>agregaciones</strong> (tema libre)</h1>
+<h2 id="requisitos">🛠️ Requisitos</h2>
+<h3 id="1-base-de-datos">1. Base de Datos</h3>
+<p>En este ejercicio vas a crear tu propia base de datos MongoDB, cuyo nombre debe seguir el formato: <strong>bd_tunombreprimerapellido</strong>.</p>
+<p>Por ejemplo, si te llamas Maria Pérez, tu base de datos se llamará bd_mariaperez.</p>
+<hr />
+<h3 id="2-modelo-con-varias-colecciones-tema-libre">2. Modelo con varias colecciones (tema libre)</h3>
+<p>Debes crear <strong>al menos 3 colecciones</strong> relacionadas mediante <strong>referencias</strong>. La temática es <strong>libre</strong>.</p>
+<h4 id="requisitos-del-modelo">Requisitos del modelo:</h4>
+<ul>
+<li>Debe haber <strong>relaciones 1:N</strong> y/o <strong>N:M</strong> usando <strong>referencias</strong> (no embedding masivo).  </li>
+<li>Puedes usar <strong>IDs lógicos</strong> (ej.: <code>"prod-laptop"</code>) o <strong>ObjectId</strong>.  </li>
+<li>Cada colección debe cargarse desde su <strong>archivo JSON</strong>.</li>
+</ul>
+<hr />
+<h3 id="3-operaciones-en-kotlin">3. Operaciones en Kotlin</h3>
+<p>Trabajarás con <strong>Kotlin + KMongo</strong> (y Jackson para leer JSON) para implementar:</p>
+<ul>
+<li>Insertar varios documentos en una colección.</li>
+<li>Mostrar todos los documentos almacenados.</li>
+<li>Actualizar algún campo de un documento.</li>
+<li>Buscar documentos según un criterio.</li>
+<li>Eliminar uno o varios documentos según condición.</li>
+<li><strong>Cargar datos desde JSON</strong> para todas tus colecciones.</li>
+<li>Verificar datos en <code>mongosh</code>.</li>
+</ul>
+<hr />
+<h3 id="4-busquedas-avanzadas-con-aggregate">4. Búsquedas avanzadas con <code>aggregate()</code></h3>
+<p>Debes crear <strong>dos consultas de agregación</strong>:</p>
+<hr />
+<h4 id="a-join-multinivel-con-referencias">🔹 A) Join multinivel con referencias</h4>
+<p>Usa <strong><code>$lookup</code></strong> y <strong><code>$unwind</code></strong> para combinar colecciones.</p>
+<hr />
+<h4 id="b-agregacion-en-una-sola-coleccion">🔹 B) Agregación en una sola colección</h4>
+<p>Ejemplos:
+- Estadísticas por categoría<br />
+- Documentos por año<br />
+- Media de duración/precio/puntuación por grupo  </p>
+<p>Debe contener al menos un <code>\$group</code> y un <code>\$sort</code>.</p>
+<hr />
+<h2 id="entrega">📩 Entrega</h2>
+<p>Sube un archivo <strong>.zip</strong> con:</p>
+<ul>
+<li>El proyecto completo de <strong>IntelliJ</strong>  </li>
+<li>Archivos JSON  </li>
+<li>
+<p>Archivo <strong>README.md</strong> donde expliques:  </p>
+<ul>
+<li>Nombre de tu base de datos  </li>
+<li>Temática elegida  </li>
+<li>Colecciones y sus referencias  </li>
+<li>Qué operaciones CRUD has implementado  </li>
+<li>Qué hace cada pipeline de agregación.</li>
+<li>Ejemplos de resultados en consola  </li>
+<li>Capturas de verificación desde <code>mongosh</code></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="rubrica-de-evaluacion">✅ Rúbrica de evaluación</h2>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th style="text-align: right;">Puntos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Base de datos y modelo (3 colecciones con referencias)</strong></td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td><strong>Carga desde JSON</strong></td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td><strong>Operaciones CRUD en Kotlin</strong></td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td><strong>Agregaciones con referencias (<code>lookup + unwind</code>)</strong></td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr>
+<td><strong>Agregación en una sola colección</strong></td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td><strong>Código y documentación (README, claridad, salidas)</strong></td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>10 puntos</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../colecciones/" class="btn btn-neutral float-left" title="🔹Colecciones"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../colecciones/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../js/copy-button.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
