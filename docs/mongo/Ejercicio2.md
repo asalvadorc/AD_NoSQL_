@@ -81,7 +81,7 @@ Sube un archivo **.zip** con:
 
 | Criterio | Puntos |
 |---------|-------:|
-| **Base de datos y modelo (4 colecciones con referencias)** | 2 |
+| **Base de datos y modelo (3 colecciones con referencias)** | 2 |
 | **Carga desde JSON** | 1 |
 | **Operaciones CRUD en Kotlin** | 2 |
 | **Agregaciones con referencias (`lookup + unwind`)** | 3 |
