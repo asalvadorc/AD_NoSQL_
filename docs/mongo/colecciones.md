@@ -23,7 +23,7 @@ Se usa cuando los datos son reutilizados en múltiples documentos o crecen mucho
 
  **Colección `pedidos`**
 
-En cada pedido guardamos en el campo **cliente_id** el cliente.
+En cada pedido guardamos en el campo **cliente_id** del cliente.
 
     [
       { "_id": 101, "cliente_id": 1, "producto": "Laptop", "total": 1200 }, 
@@ -597,10 +597,14 @@ Antes de unir colecciones con $lookup, empezaremos con un ejercicio de agregaci�
 
 El objetivo es afianzar la mecánica del framework de agregación (sin $lookup) para obtener, por cada álbum (referenciado por album_id):
 
+
 - número de canciones ($sum)
 - duración total en segundos ($sum)
 - duración media ($avg)
 - duración mínima y máxima ($min, $max)
+
+!!!Warning "Clases intermedias"
+    Cuando trabajamos con KMongo en Kotlin, las consultas simples (find, insert, update) devuelven documentos con la misma estructura que las data class que usamos para mapear las colecciones. Sin embargo, esto cambia completamente cuando usamos **agregaciones**. El documento que sale de la agregación **NO** tiene la misma forma que el documento original almacenado en la colección. La solución es utilizar **data class intermedias** que representan la forma exacta del documento que produce una etapa concreta de la agregación.
 
 🔹Añade la clase que refleja exactamente lo que proyecta el pipeline: id de álbum, nombre y métricas.
 
