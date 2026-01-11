@@ -65,15 +65,15 @@ Sube un archivo **.zip** con:
 
 - El proyecto completo de **IntelliJ**  
 - Archivos JSON  
-- Archivo **README.md** donde expliques:
+- Archivo **README.md** donde expliques:  
 
-  - Nombre de tu base de datos  
-  - Temática elegida  
-  - Colecciones y sus referencias  
-  - Qué operaciones CRUD has implementado  
-  - Qué hace cada pipeline de agregación.
-  - Ejemplos de resultados en consola  
-  - Capturas de verificación desde `mongosh`
+    - Nombre de tu base de datos  
+    - Temática elegida  
+    - Colecciones y sus referencias  
+    - Qué operaciones CRUD has implementado  
+    - Qué hace cada pipeline de agregación.
+    - Ejemplos de resultados en consola  
+    - Capturas de verificación desde `mongosh`
 
 ---
 
