@@ -69,7 +69,7 @@ Es útil cuando seguimos un enfoque de **referencias**, donde almacenamos solo e
         }
     }
 ```
-**<u>Ejemplo 1</u>:** Relacionar la coleción Usuarios con sus Pedidos
+**<u>Ejemplo 1</u>:** Relacionar la coleción Clientes con sus Pedidos
 
 * **Colección `clientes`**  
 
@@ -81,20 +81,20 @@ Es útil cuando seguimos un enfoque de **referencias**, donde almacenamos solo e
 * **Colección `pedidos`**
 
         [
-          { "_id": 101, "usuario_id": 1, "producto": "Laptop", "precio": 1200 },
-          { "_id": 102, "usuario_id": 1, "producto": "Mouse", "precio": 50 },
-          { "_id": 103, "usuario_id": 2, "producto": "Teclado", "precio": 80 }
+          { "_id": 101, "cliente_id": 1, "producto": "Laptop", "precio": 1200 },
+          { "_id": 102, "cliente_id": 1, "producto": "Mouse", "precio": 50 },
+          { "_id": 103, "cliente_id": 2, "producto": "Teclado", "precio": 80 }
         ]
 
 
 * **Consulta** con **`$lookup`** para unir clientes con sus pedidos
 
-        db.usuarios.aggregate([
+        db.clientes.aggregate([
           {
             "$lookup": {
               "from": "pedidos",         // Colección a unir
-              "localField": "_id",       // Campo en la colección actual (usuarios)
-              "foreignField": "usuario_id", // Campo en la otra colección (pedidos)
+              "localField": "_id",       // Campo en la colección actual (clientes)
+              "foreignField": "cliente_id", // Campo en la otra colección (pedidos)
               "as": "pedidos"            // Nombre del campo de salida con los pedidos
             }
           }
@@ -108,8 +108,8 @@ Es útil cuando seguimos un enfoque de **referencias**, donde almacenamos solo e
             "nombre": "Carlos",
             "email": "carlos@example.com",
             "pedidos": [
-              { "_id": 101, "usuario_id": 1, "producto": "Laptop", "precio": 1200 },
-              { "_id": 102, "usuario_id": 1, "producto": "Mouse", "precio": 50 }
+              { "_id": 101, "cliente_id": 1, "producto": "Laptop", "precio": 1200 },
+              { "_id": 102, "cliente_id": 1, "producto": "Mouse", "precio": 50 }
             ]
           },
           {
@@ -117,7 +117,7 @@ Es útil cuando seguimos un enfoque de **referencias**, donde almacenamos solo e
             "nombre": "Ana",
             "email": "ana@example.com",
             "pedidos": [
-              { "_id": 103, "usuario_id": 2, "producto": "Teclado", "precio": 80 }
+              { "_id": 103, "cliente_id": 2, "producto": "Teclado", "precio": 80 }
             ]
           }
         ]
@@ -204,9 +204,9 @@ Siguiendo con el ejemplo de clientes y sus pedidos, si cada pedido tiene detalle
 * **Colección `pedidos`**
 
         [
-          { "_id": 101, "usuario_id": 1, "producto": "Laptop", "precio": 1200 },
-          { "_id": 102, "usuario_id": 1, "producto": "Mouse", "precio": 50 },
-          { "_id": 103, "usuario_id": 2, "producto": "Teclado", "precio": 80 }
+          { "_id": 101, "cliente_id": 1, "producto": "Laptop", "precio": 1200 },
+          { "_id": 102, "cliente_id": 1, "producto": "Mouse", "precio": 50 },
+          { "_id": 103, "cliente_id": 2, "producto": "Teclado", "precio": 80 }
         ]
 
 * **Colección `detalles_pedido`**
@@ -219,14 +219,14 @@ Siguiendo con el ejemplo de clientes y sus pedidos, si cada pedido tiene detalle
 
 * Consulta con **`$lookup` anidado** 
 
-La idea es obtener una lista de usuarios con sus pedidos, y dentro de cada pedido, los detalles de ese pedido.
+La idea es obtener una lista de clientes con sus pedidos, y dentro de cada pedido, los detalles de ese pedido.
 
-          db.usuarios.aggregate([
+          db.clientes.aggregate([
           {
             "$lookup": {
               "from": "pedidos",
               "localField": "_id",
-              "foreignField": "usuario_id",
+              "foreignField": "cliente_id",
               "as": "pedidos"
             }
           },
@@ -261,7 +261,7 @@ La idea es obtener una lista de usuarios con sus pedidos, y dentro de cada pedid
             "pedidos": [
               {
                 "_id": 101,
-                "usuario_id": 1,
+                "cliente_id": 1,
                 "producto": "Laptop",
                 "precio": 1200,
                 "detalles": [
@@ -270,7 +270,7 @@ La idea es obtener una lista de usuarios con sus pedidos, y dentro de cada pedid
               },
               {
                 "_id": 102,
-                "usuario_id": 1,
+                "cliente_id": 1,
                 "producto": "Mouse",
                 "precio": 50,
                 "detalles": [
@@ -286,7 +286,7 @@ La idea es obtener una lista de usuarios con sus pedidos, y dentro de cada pedid
             "pedidos": [
               {
                 "_id": 103,
-                "usuario_id": 2,
+                "cliente_id": 2,
                 "producto": "Teclado",
                 "precio": 80,
                 "detalles": [
@@ -301,7 +301,7 @@ La idea es obtener una lista de usuarios con sus pedidos, y dentro de cada pedid
 🎯 **Explicación del Pipeline**
 
 
-- $lookup (usuarios → pedidos): Une los pedidos a cada cliente.
+- $lookup (clientes → pedidos): Une los pedidos a cada cliente.
 - $unwind (pedidos): Descompone la lista de pedidos para poder hacer otro $lookup.
 - $lookup (pedidos → detalles_pedido): Une los detalles a cada pedido.
 - $group: Vuelve a agrupar los datos para reconstruir la estructura.
@@ -316,15 +316,15 @@ Es especialmente útil cuando trabajamos con **$lookup**, porque las consultas d
 
   ✔ Cuando necesitas descomponer arrays en documentos individuales.  
   ✔ Para hacer joins en múltiples niveles (como unir detalles_pedido a cada pedido).  
-  ✔ Para hacer cálculos en elementos individuales de un array, como contar cuántos productos ha comprado un usuario.
+  ✔ Para hacer cálculos en elementos individuales de un array, como contar cuántos productos ha comprado un cliente.
 
 !!!Note "Ejemplo sin $unwind"
-          db.usuarios.aggregate([
+          db.clientes.aggregate([
             {
               "$lookup": {
                 "from": "pedidos",
                 "localField": "_id",
-                "foreignField": "usuario_id",
+                "foreignField": "cliente_id",
                 "as": "pedidos"
               }
             }
@@ -337,28 +337,28 @@ Es especialmente útil cuando trabajamos con **$lookup**, porque las consultas d
                 "_id": 1,
                 "nombre": "Carlos",
                 "pedidos": [
-                  { "_id": 101, "usuario_id": 1, "producto": "Laptop", "precio": 1200 },
-                  { "_id": 102, "usuario_id": 1, "producto": "Mouse", "precio": 50 }
+                  { "_id": 101, "cliente_id": 1, "producto": "Laptop", "precio": 1200 },
+                  { "_id": 102, "cliente_id": 1, "producto": "Mouse", "precio": 50 }
                 ]
               },
               {
                 "_id": 2,
                 "nombre": "Ana",
                 "pedidos": [
-                  { "_id": 103, "usuario_id": 2, "producto": "Teclado", "precio": 80 }
+                  { "_id": 103, "cliente_id": 2, "producto": "Teclado", "precio": 80 }
                 ]
               }
             ]
 
-Cada usuario tiene un array con sus pedidos, pero si queremos hacer un segundo $lookup (por ejemplo, para unir detalles de los pedidos), MongoDB no puede unir arrays directamente.
+Cada cliente tiene un array con sus pedidos, pero si queremos hacer un segundo $lookup (por ejemplo, para unir detalles de los pedidos), MongoDB no puede unir arrays directamente.
 
 !!!Note "Ejemplo con $unwind"
-          db.usuarios.aggregate([
+          db.clientes.aggregate([
             {
               "$lookup": {
                 "from": "pedidos",
                 "localField": "_id",
-                "foreignField": "usuario_id",
+                "foreignField": "cliente_id",
                 "as": "pedidos"
               }
             },
@@ -373,21 +373,21 @@ Cada usuario tiene un array con sus pedidos, pero si queremos hacer un segundo $
               {
                 "_id": 1,
                 "nombre": "Carlos",
-                "pedidos": { "_id": 101, "usuario_id": 1, "producto": "Laptop", "precio": 1200 }
+                "pedidos": { "_id": 101, "cliente_id": 1, "producto": "Laptop", "precio": 1200 }
               },
               {
                 "_id": 1,
                 "nombre": "Carlos",
-                "pedidos": { "_id": 102, "usuario_id": 1, "producto": "Mouse", "precio": 50 }
+                "pedidos": { "_id": 102, "cliente_id": 1, "producto": "Mouse", "precio": 50 }
               },
               {
                 "_id": 2,
                 "nombre": "Ana",
-                "pedidos": { "_id": 103, "usuario_id": 2, "producto": "Teclado", "precio": 80 }
+                "pedidos": { "_id": 103, "cliente_id": 2, "producto": "Teclado", "precio": 80 }
               }
             ]
 
-Ahora, cada usuario tiene múltiples documentos, uno por cada pedido, lo que permite realizar otro $lookup con detalles_pedido.
+Ahora, cada cliente tiene múltiples documentos, uno por cada pedido, lo que permite realizar otro $lookup con detalles_pedido.
 
 ----
 
